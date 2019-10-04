@@ -1,6 +1,7 @@
 {
   "name": "shadow",
   "version": "1.0.0",
+  "main": "src/index.js",
   "dependencies": {
     "discord.js": "latest"
   }
