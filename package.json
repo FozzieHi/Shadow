@@ -1,0 +1,7 @@
+{
+  "name": "shadow",
+  "version": "1.0.0",
+  "dependencies": {
+    "discord.js": "latest"
+  }
+}
