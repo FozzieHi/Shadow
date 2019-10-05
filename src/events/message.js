@@ -5,11 +5,18 @@ const Sender = require('../utils/Sender.js');
 const {Handler} = require('patron.js');
 const handler = new Handler({registry});
 const Configuration = require('../utils/Configuration.js');
+const AutoModerationService = require('../services/AutoModerationService.js');
 
 client.on('message', (msg) => {
     (async () => {
         if (msg.author.bot) {
             return;
+        }
+
+        const inGuild = msg.guild !== null;
+
+        if (inGuild) {
+            AutoModerationService.antiAdvertisingMsg(msg);
         }
 
         const prefix = ';';

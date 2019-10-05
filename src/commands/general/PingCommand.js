@@ -12,7 +12,7 @@ class PingCommand extends patron.Command {
     }
 
     async run(msg, args) {
-        const sender = new Sender(msg); // I plan to integrate this into command args when patron gets support for it.
+        const sender = new Sender(msg);
         return sender.reply('Pong!', { footer: `Round trip time: ${client.ping}ms` });
     }
 }
