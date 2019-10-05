@@ -2,11 +2,9 @@ language: node_js
 node_js:
 - '12'
 - '10'
-script: skip
+script: node src/travis.js $TOKEN
 jobs:
   include:
-    - stage: "Test"
-      script: node src/travis.js $TOKEN
     - stage: "Vulnerability scan"
       script: snyk test
       after_success: snyk monitor
