@@ -27,7 +27,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 const filter = m => m.author.id === user.id;
                 sender.send('What would you like the Muted role to be?');
                 const mutedRole = await msg.channel.awaitMessages(filter, { max: 1 });
-                const role = await msg.guild.roles.find("name", mutedRole.first().content);
+                const role = await msg.guild.roles.find(role => role.name === mutedRole.first().content);
                 if (role === undefined || role === null) {
                     return sender.send('Could not find the role ' + mutedRole.first().content);
                 }
@@ -38,7 +38,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 const filter = m => m.author.id === user.id;
                 sender.send('What would you like the new Logging Channel to be?');
                 const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
-                const channel = msg.guild.channels.find("name", newChannel.first().content);
+                const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
                 if (channel === undefined || channel === null) {
                     return sender.send('Could not find Text Channel #' + newChannel.first().content);
                 }
@@ -86,7 +86,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                     const filter = m => m.author.id === user.id;
                     await sender.send('You first have to set the Muted role, what role would you like it to be?');
                     const mutedRoleNew = await msg.channel.awaitMessages(filter, { max: 1 });
-                    const role = await msg.guild.roles.find("name", mutedRoleNew.first().content);
+                    const role = await msg.guild.roles.find(role => role.name === mutedRoleNew.first().content);
                     if (role === undefined || role === null) {
                         return sender.send('Could not find the role ' + mutedRoleNew.first().content);
                     }
