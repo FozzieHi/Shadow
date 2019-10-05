@@ -1,6 +1,7 @@
 const client = require('../singletons/client.js');
 const registry = require('../singletons/registry.js');
 const patron = require('patron.js');
+const db = require('../database/index.js');
 const Sender = require('../utils/Sender.js');
 const {Handler} = require('patron.js');
 const handler = new Handler({registry});
@@ -13,20 +14,28 @@ client.on('message', (msg) => {
             return;
         }
 
+        let prefix = 's$';
+        const sender = new Sender(msg);
+
         const inGuild = msg.guild !== null;
 
         if (inGuild) {
-            AutoModerationService.antiAdvertisingMsg(msg);
+            msg.member = msg.member !== null ? msg.member : await msg.guild.fetchMember(msg.author);
+            msg.dbUser = await db.userRepo.getUser(msg.author.id, msg.guild.id);
+            msg.dbGuild = await db.guildRepo.getGuild(msg.guild.id);
+            msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
+            msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
         }
 
-        const prefix = ';';
-        const sender = new Sender(msg);
-
-        if (/^;/.test(msg.content)) {
-            const result = await handler.run(msg, 1);
+        if (msg.content.startsWith(prefix)) {
+            const result = await handler.run(msg, prefix.length);
 
             if (!result.success) {
                 let message;
+
+                if (result.commandError === patron.CommandError.UnknownCmd) {
+                    return;
+                }
 
                 if (result.commandError === patron.CommandError.InvalidArgCount) {
                     message = 'You must provide all required<> arguments.\n**Usage:** `' + prefix + result.command.getUsage() + '`\n**Example:** `' + prefix + result.command.getExample() + '`';
