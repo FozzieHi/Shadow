@@ -1,2 +1,2 @@
 const discord = require('discord.js');
-module.exports = new discord.Client({ fetchAllMembers: true, messageCacheMaxSize: 100, messageCacheLifetime: 30, messageSweepInterval: 1800 });
+module.exports = new discord.Client({ fetchAllMembers: true, messageCacheMaxSize: 250, messageCacheLifetime: 60, messageSweepInterval: 3600 });
