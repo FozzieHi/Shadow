@@ -3,4 +3,4 @@ node_js:
 - '12'
 - '10'
 script:
-- node src/travis.js $TOKEN $DBCONNECTION
+- node src/travis.js $TOKEN "$DBCONNECTION"
