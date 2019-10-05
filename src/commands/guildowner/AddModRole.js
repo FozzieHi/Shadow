@@ -1,6 +1,7 @@
 const db = require('../../database/index.js');
 const patron = require('patron.js');
 const Configuration = require('../../utils/Configuration.js');
+const Sender = require('../../utils/Sender.js');
 
 class AddModRole extends patron.Command {
     constructor() {
@@ -26,7 +27,8 @@ class AddModRole extends patron.Command {
         });
     }
 
-    async run(msg, args, sender) {
+    async run(msg, args) {
+        const sender = new Sender(msg);
         if (args.permissionLevel < 1 || args.permissionLevel > 3) {
             return sender.reply('**Permission levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Server Owner', { color: Configuration.errorColour });
         } else if (msg.dbGuild.roles.mod.some((role) => role.id === args.role.id)) {
