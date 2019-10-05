@@ -15,6 +15,10 @@ class Configuration {
         ];
 
         this.errorColour = 0xff0000;
+
+        this.regexes = {
+            antiad: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite|dicksword\.com\/invite|discordservers\.com\/server)\/.+[a-zA-Z]/g
+        }
     }
 }
 
