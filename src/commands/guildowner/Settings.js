@@ -10,7 +10,7 @@ class Settings extends patron.Command {
         });
     }
 
-    async run(msg, args, sender) {
+    async run(msg, args) {
         return MenuService.spawnSettingsMain(msg, msg.dbGuild, msg.author.id);
     }
 }
