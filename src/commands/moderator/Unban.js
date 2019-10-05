@@ -31,7 +31,6 @@ class Unban extends patron.Command {
     }
 
     async run(msg, args) {
-        console.log(args.user);
         await msg.guild.unban(args.user);
         await msg.sender.reply('Successfully unbanned ' + StringUtils.boldify(args.user.username) + '.');
         await LoggingService.modLog(msg.dbGuild, msg.guild, 'Unban', Configuration.greenColour, args.reason, msg.author, args.user);
