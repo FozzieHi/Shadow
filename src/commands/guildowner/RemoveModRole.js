@@ -1,6 +1,7 @@
 const db = require('../../database');
 const patron = require('patron.js');
 const Configuration = require('../../utils/Configuration.js');
+const Sender = require('../../utils/Sender.js');
 
 class RemoveModRole extends patron.Command {
     constructor() {
@@ -20,7 +21,8 @@ class RemoveModRole extends patron.Command {
         });
     }
 
-    async run(msg, args, sender) {
+    async run(msg, args) {
+        const sender = new Sender(msg);
         if (msg.dbGuild.roles.mod.some((role) => role.id === args.role.id) === false) {
             return sender.reply('Moderation role has not been set.', { color: Configuration.errorColour });
         }
