@@ -1,6 +1,6 @@
 const patron = require('patron.js');
 const StringUtil = require('../../utils/StringUtils.js');
-const ModerationService = require("../../services/ModerationService");
+const ModerationService = require('../../services/ModerationService');
 
 class Kick extends patron.Command {
     constructor() {

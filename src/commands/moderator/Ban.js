@@ -1,6 +1,6 @@
 const patron = require('patron.js');
 const StringUtil = require('../../utils/StringUtils.js');
-const ModerationService = require("../../services/ModerationService");
+const ModerationService = require('../../services/ModerationService');
 
 class Ban extends patron.Command {
     constructor() {
@@ -8,6 +8,7 @@ class Ban extends patron.Command {
             names: ['ban'],
             groupName: 'moderator',
             description: 'Ban a user.',
+            botPermissions: ['BAN_MEMBERS'],
             args: [
                 new patron.Argument({
                     name: 'user',
@@ -29,9 +30,9 @@ class Ban extends patron.Command {
     }
 
     async run(msg, args) {
-        await ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Ban', args.member.user, msg.author, args.reason, msg.sender);
+        await ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Ban', args.user, msg.author, args.reason, msg.sender);
         await msg.guild.ban(args.user);
-        return msg.sender.reply(`Successfully banned ${StringUtil.boldify(args.member.user.tag)}.`);
+        return msg.sender.reply(`Successfully banned ${StringUtil.boldify(args.user.tag)}.`);
     }
 }
 

@@ -1,6 +1,6 @@
 const Sender = require('../utils/Sender.js');
 const Configuration = require('../utils/Configuration.js');
-const StringUtils = require("../utils/StringUtils");
+const StringUtils = require('../utils/StringUtils');
 
 class LoggingService {
     log(dbGuild, guild, color, author, message) {

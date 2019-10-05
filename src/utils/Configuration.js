@@ -15,6 +15,7 @@ class Configuration {
         ];
 
         this.greenColour = 0x00e828;
+        this.redColour = 0xea0c00;
         this.orangeColour = 0xe8511f;
         this.errorColour = 0xff0000;
 
