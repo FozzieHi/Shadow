@@ -2,7 +2,7 @@ const discord = require('discord.js');
 const Random = require('./Random.js');
 const Configuration = require('./Configuration.js');
 
-class Embed extends discord.RichEmbed {
+class Embed extends discord.MessageEmbed {
     constructor(data) {
         if (data.fields !== undefined) {
             const inline = data.inline !== undefined ? data.inline : false;
