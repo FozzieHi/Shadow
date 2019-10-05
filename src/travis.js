@@ -9,7 +9,7 @@ client.registry = registry;
 RequireAll(path.join(__dirname, 'events'));
 
 (async () => {
-    await db.connect(process.argv[3]);
+    await db.connect(process.argv[3].toString());
     await registry.registerGlobalTypeReaders();
     await registry.registerLibraryTypeReaders();
     await registry.registerPreconditions(await reqAbs(__dirname, './preconditions/command'));
