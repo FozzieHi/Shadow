@@ -10,7 +10,7 @@ class MenuService {
         let mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
         logChannel !== undefined ? logChannel = '- #' + logChannel.name : logChannel = '';
         mutedRole !== undefined ? mutedRole = '- ' + mutedRole.name : mutedRole = '';
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setColor(Random.arrayElement(Configuration.defaultColours))
             .setTitle('Guild settings for ' + msg.guild.name)
             .setThumbnail(msg.guild.iconURL)
@@ -40,7 +40,7 @@ class MenuService {
 
     async spawnAutoMod(msg, dbGuild, userID) {
         await this.checkForNulls(msg, dbGuild);
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setColor(Random.arrayElement(Configuration.defaultColours))
             .setTitle('Auto Moderation for ' + msg.guild.name)
             .setThumbnail(msg.guild.iconURL)
