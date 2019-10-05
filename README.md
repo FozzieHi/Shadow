@@ -7,7 +7,7 @@ Create a file called `credentials.json` in the src folder.
 Copy these contents over, replacing `exampletoken` with a Discord Bot's token you have created and `mongoConnectionURL` with the MongoDB connection URL for MongoDB 2.2.12 or later.
 ```json
 {
-  "mongoConnectionURL": "mongodb://connection-url"
+  "mongoConnectionURL": "mongodb://connection-url",
   "token": "exampletoken"
 }
 ```
