@@ -1,8 +1,7 @@
 const patron = require('patron.js');
 const client = require('../../singletons/client.js');
-const Sender = require('../../utils/Sender.js');
 
-class PingCommand extends patron.Command {
+class Ping extends patron.Command {
     constructor() {
         super({
             names: ['ping'],
@@ -12,9 +11,8 @@ class PingCommand extends patron.Command {
     }
 
     async run(msg, args) {
-        const sender = new Sender(msg);
-        return sender.reply('Pong!', { footer: `Round trip time: ${client.ping}ms` });
+        return msg.sender.reply('Pong!', { footer: `Round trip time: ${client.ping}ms` });
     }
 }
 
-module.exports = new PingCommand();
+module.exports = new Ping();

@@ -15,8 +15,14 @@ class Configuration {
         ];
 
         this.greenColour = 0x00e828;
+        this.redColour = 0xea0c00;
         this.orangeColour = 0xe8511f;
         this.errorColour = 0xff0000;
+
+        this.game = {
+            activity: 'github.com/FozzieHi/Shadow',
+            type: 'WATCHING'
+        };
 
         this.emotes = {
             enabled: '<:enabled:481046316370231296>',
@@ -27,7 +33,11 @@ class Configuration {
 
         this.regexes = {
             antiad: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite|dicksword\.com\/invite|discordservers\.com\/server)\/.+[a-zA-Z]/g
-        }
+        };
+
+        this.invites = {
+            bot: 'https://discordapp.com/oauth2/authorize?client_id=480338490639384576&scope=bot&permissions=8'
+        };
     }
 }
 

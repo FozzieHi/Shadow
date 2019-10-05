@@ -1,7 +1,6 @@
 const db = require('../../database/index.js');
 const patron = require('patron.js');
 const Configuration = require('../../utils/Configuration.js');
-const Sender = require('../../utils/Sender.js');
 
 class AddModRole extends patron.Command {
     constructor() {
@@ -28,16 +27,15 @@ class AddModRole extends patron.Command {
     }
 
     async run(msg, args) {
-        const sender = new Sender(msg);
         if (args.permissionLevel < 1 || args.permissionLevel > 3) {
-            return sender.reply('**Permission levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Server Owner', { color: Configuration.errorColour });
+            return msg.sender.reply('**Permission levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Server Owner', { color: Configuration.errorColour });
         } else if (msg.dbGuild.roles.mod.some((role) => role.id === args.role.id)) {
-            return sender.reply('The moderation role has already been set.', { color: Configuration.errorColour });
+            return msg.sender.reply('The moderation role has already been set.', { color: Configuration.errorColour });
         }
 
         await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Push('roles.mod', { id: args.role.id, permissionLevel: args.permissionLevel }));
 
-        return sender.reply('Successfully added the moderation role ' + args.role + ' with a level of ' + args.permissionLevel + '.');
+        return msg.sender.reply('Successfully added the moderation role ' + args.role + ' with a level of ' + args.permissionLevel + '.');
     }
 }
 

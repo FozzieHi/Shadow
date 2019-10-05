@@ -19,6 +19,8 @@ client.on('message', (msg) => {
 
         const inGuild = msg.guild !== null;
 
+        msg.sender = sender;
+
         if (inGuild) {
             msg.member = msg.member !== null ? msg.member : await msg.guild.fetchMember(msg.author);
             msg.dbUser = await db.userRepo.getUser(msg.author.id, msg.guild.id);
