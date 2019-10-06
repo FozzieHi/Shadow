@@ -28,7 +28,6 @@ client.on('messageDelete', (message) => {
                         options.author = {
                             name: message.author.tag,
                             icon_url: message.author.displayAvatarURL(),
-                            url: message.url
                         };
 
                         await Sender.sendFields(logChannel, [
