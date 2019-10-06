@@ -15,8 +15,10 @@ class Stats extends patron.Command {
         return msg.sender.sendFields([
             'Authors', 'Fozzie#0001, Brandon14#0131, Jayden 🎃#8080',
             'Guilds', msg.client.guilds.size,
+            'Users', msg.client.users.size,
             'Memory', `${(process.memoryUsage().rss / 1048576).toFixed(2)} MB`,
             'Node.js version', `v${process.versions.node}`,
+            'Invite', `https://shdw.cc`,
             'Uptime', `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m`
         ])
     }
