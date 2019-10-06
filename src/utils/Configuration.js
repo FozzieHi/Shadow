@@ -20,6 +20,13 @@ class Configuration {
         this.lightOrangeColour = 0xff720e;
         this.errorColour = 0xff0000;
 
+        this.disabledEvents = [
+            'CHANNEL_PINS_UPDATE',
+            'VOICE_STATE_UPDATE',
+            'TYPING_START',
+            'VOICE_SERVER_UPDATE',
+        ];
+
         this.game = {
             activity: ['github.com/FozzieHi/Shadow', 'shdw.cc'],
             type: 'WATCHING'
@@ -40,6 +47,7 @@ class Configuration {
         this.regexes = {
             antiad: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite|dicksword\.com\/invite|discordservers\.com\/server)\/.+[a-zA-Z]/g
         };
+
 
         this.invites = {
             bot: 'https://shdw.cc'

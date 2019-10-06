@@ -37,7 +37,7 @@ class Mute extends patron.Command {
         });
     }
 
-    async run(msg, args,) {
+    async run(msg, args) {
         const role = msg.guild.roles.get(msg.dbGuild.roles.muted);
         const time = args.time.toLowerCase();
         const timeNum = time.replace(/\D/g, '');
@@ -62,7 +62,7 @@ class Mute extends patron.Command {
         if (msg.dbGuild.roles.muted === null) {
             return msg.sender.reply('Set a muted role with the `' + msg.dbGuild.prefix + 'settings` command before you can mute users.', { color: Configuration.errorColour });
         } else if (args.member.roles.has(msg.dbGuild.roles.muted)) {
-            return msg.sender.reply('Member is already muted.', { color: Configuration.errorColour });
+            return msg.sender.reply(`${StringUtils.boldify(args.member.user.tag)} is already muted.`, { color: Configuration.errorColour });
         }
 
         if (role === undefined) {
