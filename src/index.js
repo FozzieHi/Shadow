@@ -6,6 +6,7 @@ const reqAbs = require('./utils/reqAbs.js');
 const path = require('path');
 const {RequireAll} = require('patron.js');
 const IntervalService = require('./services/IntervalService.js');
+const Logger = require('./utils/Logger.js');
 
 client.registry = registry;
 RequireAll(path.join(__dirname, 'events'));
@@ -20,6 +21,4 @@ IntervalService.startService();
     await registry.registerGroups(await reqAbs(__dirname, './groups'));
     await registry.registerCommands(await reqAbs(__dirname, './commands'));
     return client.login(credentials.token);
-})().catch((err) => {
-    console.log(err);
-});
+})().catch((err) => Logger.handleError(err));

@@ -1,5 +1,6 @@
 const client = require('../singletons/client.js');
+const Logger = require('../utils/Logger.js');
 
 client.on('disconnect', () => {
-    return console.log('Shadow has disconnected.');
+    return Logger.log('Shadow has disconnected.', 'INFO');
 });

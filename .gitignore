@@ -1,5 +1,8 @@
 # Packages
-node_modules
+node_modules/
 
 # Credentials
 src/credentials.json
+
+# Shadow Logs
+logs/

@@ -13,6 +13,18 @@ class NumberUtil {
         };
     }
 
+    hoursToMs(input) {
+        return input * 3600000;
+    }
+
+    minutesToMs(input) {
+        return input * 60000;
+    }
+
+    daysToMs(input) {
+        return input * 86400000;
+    }
+
     pad(num, size) {
         let s = num.toString();
 

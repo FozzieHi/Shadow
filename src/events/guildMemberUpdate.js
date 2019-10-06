@@ -1,6 +1,7 @@
 const client = require('../singletons/client.js');
 const db = require('../database/index.js');
 const AutoModerationService = require('../services/AutoModerationService.js');
+const Logger = require('../utils/Logger.js');
 
 client.on('guildMemberUpdate', async (oldMember, newMember) => {
     (async () => {
@@ -10,7 +11,5 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
                 AutoModerationService.antiAdvertisingNick(dbGuild, newMember, newMember.guild, newMember.nickname);
             }
         }
-    })().catch((err) => {
-        console.log(err);
-    })
+    })().catch((err) => Logger.handleError(err));
 });

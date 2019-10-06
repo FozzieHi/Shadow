@@ -1,5 +1,6 @@
 const client = require('../singletons/client.js');
+const Logger = require('../utils/Logger.js');
 
 client.on('reconnect', () => {
-    return console.log('Attempting to reconnect...');
+    return Logger.log('Attempting to reconnect...', 'INFO');
 });
