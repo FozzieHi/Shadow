@@ -81,6 +81,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
     for (let i = 0; i < dbGuild.pages.autoMod.length; i++) {
         if (msg.id === dbGuild.pages.autoMod[i].id && user.id === dbGuild.pages.autoMod[i].user) {
             if (reaction === '⌨') {
+                const protection = dbGuild.autoMod.mention;
                 const mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
                 if (mutedRole === undefined || mutedRole === null) {
                     const filter = m => m.author.id === user.id;
@@ -93,6 +94,26 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                     await sender.send('Successfully set the Muted role to ' + role);
                     await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'roles.muted': role.id } });
                 }
+                if (protection) {
+                    await sender.send('Mention Spam Bot Protection has been disabled.', { color: Configuration.errorColour });
+                    return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'autoMod.mention': false } });
+                }
+                await sender.send('Mention Spam Bot Protection has been enabled.', { color: Configuration.greenColour });
+                return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'autoMod.mention': true } });
+            }
+            if (reaction === '🗒') {
+                const filter = m => m.author.id === user.id;
+                await sender.send('What would you like the Mention Spam Limit to be?');
+                const getMessage = await msg.channel.awaitMessages(filter, { max: 1 });
+                const mentionLimit = getMessage.first().content;
+                if (isNaN(parseInt(mentionLimit))) {
+                    return sender.send('You must specify a valid number.', { color: Configuration.errorColour });
+                }
+                if (parseInt(mentionLimit) >= 5 && parseInt(mentionLimit) <= 100) {
+                    await sender.send('Successfully set the Mention Limit to ' + mentionLimit);
+                    return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'autoMod.mentionLimit': mentionLimit } });
+                }
+                return sender.reply('The number must be between 5 and 100', { color: Configuration.errorColour });
             }
             if (reaction === '🛑') {
                 const protection = dbGuild.autoMod.antiad;

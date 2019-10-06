@@ -4,7 +4,7 @@ const MenuService = require('../../services/MenuService.js');
 class Settings extends patron.Command {
     constructor() {
         super({
-            names: ['settings'],
+            names: ['settings', 'setting', 'config'],
             groupName: 'guildowner',
             description: 'View the Guild settings.'
         });

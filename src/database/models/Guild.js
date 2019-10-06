@@ -3,9 +3,9 @@ class Guild {
         this.guildId = guildId;
         this.prefix = 's$';
         this.autoMod = {
+            antiad: false,
             mention: false,
-            mentionLimit: 24,
-            antiad: false
+            mentionLimit: 14,
         };
         this.roles = {
             mod: [],

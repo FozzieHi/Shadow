@@ -52,7 +52,7 @@ class ModerationService {
         const dbUser = await db.userRepo.getUser(user.id, guild.id);
         const date = new Date();
         const readableDate = await new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMonth(), date.getSeconds());
-        await Try(sender.dm(`A moderator has ${action.toLowerCase()}ed you` + (reason !== "" ? ` for the reason ${reason}` : `.`), { color: colour, footer: guild.name }, user));
+        await Try(sender.dm(`A moderator has ${action.toLowerCase().replace('e', '')}ed you` + (reason !== "" ? ` for the reason ${reason}` : `.`), { color: colour, footer: guild.name }, user));
         await db.userRepo.upsertUser(user.id, guild.id, new db.updates.Push('punishments', { id: dbUser.punishmentId, date: Date.now(), readableDate: readableDate.toGMTString(), action: action, reason: reason, mod: moderator.tag }));
         await db.userRepo.upsertUser(user.id, guild.id, { $inc: { punishmentId: 1 } });
         return LoggingService.modLog(dbGuild, guild, action, Configuration.orangeColour, reason, moderator, user, extraInfoKey, extraInfoValue);

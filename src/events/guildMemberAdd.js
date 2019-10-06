@@ -21,7 +21,7 @@ client.on('guildMemberAdd', async (member) => {
 
             const logChannel = member.guild.channels.get(dbGuild.channels.log);
 
-            if (logChannel !== null) {
+            if (logChannel !== undefined && logChannel !== null) {
                 return LoggingService.log(dbGuild, member.guild, Configuration.errorColour, null, `${member.user.tag} is muted and rejoined, I do not have permission to give them the Muted role again.`);
             }
         }
