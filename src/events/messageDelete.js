@@ -31,7 +31,7 @@ client.on('messageDelete', (message) => {
                         };
 
                         await Sender.sendFields(logChannel, [
-                            'Type', 'Message Deletion',
+                            'Action', `Message Deletion in ${message.channel}`,
                             'Content', message.content], options);
                     }
                 }
