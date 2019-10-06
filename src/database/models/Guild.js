@@ -2,6 +2,7 @@ class Guild {
     constructor(guildId) {
         this.guildId = guildId;
         this.prefix = 's$';
+        this.logMessages = false;
         this.autoMod = {
             antiad: false,
             mention: false,
@@ -16,7 +17,8 @@ class Guild {
             autoMod: [],
         };
         this.channels = {
-            log: undefined
+            log: undefined,
+            messageLog: undefined
         }
     }
 }

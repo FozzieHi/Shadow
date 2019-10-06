@@ -42,8 +42,35 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 if (channel === undefined || channel === null) {
                     return sender.send('Could not find Text Channel #' + newChannel.first().content);
                 }
-                await sender.send('Successfully set ' + channel + ' as the Logging Channel.');
+                await sender.send('Successfully set ' + channel.name + ' as the logging channel.');
                 return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.log': channel.id } });
+            }
+            if (reaction === '🔄') { // Toggle message logging.
+                const updated = !dbGuild.logMessages;
+                await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'logMessages': (dbGuild.logMessages === undefined ? true : updated) } });
+                let channel = msg.guild.channels.get(dbGuild.channels.messageLog);
+                if (updated && dbGuild.channels.messageLog === undefined || channel === undefined) {
+                    const filter = m => m.author.id === user.id;
+                    await sender.send('What would you like the channel to log message edits/deletes be?');
+                    const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
+                    const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                    if (channel === undefined || channel === null) {
+                        return sender.send('Could not find Text Channel #' + newChannel.first().content);
+                    }
+                    await sender.send('Successfully set ' + channel.name + ' as the message logging channel and enabled message logging.');
+                    return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.messageLog': channel.id } });
+                }
+            }
+            if (reaction === '🖊') { // Change message logging channels.
+                const filter = m => m.author.id === user.id;
+                await sender.send('What would you like the channel to log message edits/deletes be?');
+                const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
+                const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                if (channel === undefined || channel === null) {
+                    return sender.send('Could not find Text Channel #' + newChannel.first().content);
+                }
+                await sender.send('Successfully set ' + channel.name + ' as the message logging channel.');
+                return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.messageLog': channel.id } });
             }
             if (reaction === '⚒') { // Auto Mod.
                 return MenuService.spawnAutoMod(msg, dbGuild, user.id);
