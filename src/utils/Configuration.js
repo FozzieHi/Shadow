@@ -20,7 +20,7 @@ class Configuration {
         this.errorColour = 0xff0000;
 
         this.game = {
-            activity: 'github.com/FozzieHi/Shadow',
+            activity: ['github.com/FozzieHi/Shadow', 'shdw.cc'],
             type: 'WATCHING'
         };
 
@@ -29,6 +29,10 @@ class Configuration {
             enabledID: '481046316370231296',
             disabled: '<:disabled:481046198548037642>',
             disabledID: '481046198548037642'
+        };
+
+        this.intervals = {
+            changeStatus: 15000
         };
 
         this.regexes = {
