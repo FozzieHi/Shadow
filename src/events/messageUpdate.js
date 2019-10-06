@@ -1,5 +1,6 @@
 const client = require('../singletons/client.js');
 const AutoModerationService = require('../services/AutoModerationService.js');
+const Logger = require('../utils/Logger.js');
 
 client.on('messageUpdate', (oldMessage, newMessage) => {
     (async () => {
@@ -13,7 +14,5 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
             AutoModerationService.antiAdvertisingMsg(newMessage);
         }
 
-    })().catch((err) => {
-        console.log(err);
-    })
+    })().catch((err) => Logger.handleError(err));
 });

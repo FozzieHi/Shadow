@@ -37,9 +37,12 @@ class ModerationService {
         }
     }
 
-    async submitPunishment(guild, dbGuild, action, user, moderator, reason, sender) {
+    async submitPunishment(guild, dbGuild, action, user, moderator, reason, sender, extraInfoKey = '', extraInfoValue = '') {
         let colour;
         switch (action) {
+            case 'Mute':
+                colour = Configuration.lightOrangeColour;
+                break;
             case 'Kick':
                 colour = Configuration.orangeColour;
                 break;
@@ -52,7 +55,7 @@ class ModerationService {
         await Try(sender.dm(`A moderator has ${action.toLowerCase()}ed you` + (reason !== "" ? ` for the reason ${reason}` : `.`), { color: colour, footer: guild.name }, user));
         await db.userRepo.upsertUser(user.id, guild.id, new db.updates.Push('punishments', { id: dbUser.punishmentId, date: Date.now(), readableDate: readableDate.toGMTString(), action: action, reason: reason, mod: moderator.tag }));
         await db.userRepo.upsertUser(user.id, guild.id, { $inc: { punishmentId: 1 } });
-        return LoggingService.modLog(dbGuild, guild, action, Configuration.orangeColour, reason, moderator, user);
+        return LoggingService.modLog(dbGuild, guild, action, Configuration.orangeColour, reason, moderator, user, extraInfoKey, extraInfoValue);
     }
 }
 

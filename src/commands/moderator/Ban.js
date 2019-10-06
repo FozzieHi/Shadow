@@ -30,9 +30,9 @@ class Ban extends patron.Command {
     }
 
     async run(msg, args) {
+        await msg.sender.reply(`Successfully banned ${StringUtil.boldify(args.user.tag)}.`);
         await ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Ban', args.user, msg.author, args.reason, msg.sender);
-        await msg.guild.members.ban(args.user);
-        return msg.sender.reply(`Successfully banned ${StringUtil.boldify(args.user.tag)}.`);
+        return msg.guild.members.ban(args.user);
     }
 }
 

@@ -4,6 +4,7 @@ const reqAbs = require('./utils/reqAbs.js');
 const path = require('path');
 const {RequireAll} = require('patron.js');
 const IntervalService = require('./services/IntervalService.js');
+const Logger = require('./utils/Logger.js');
 
 client.registry = registry;
 RequireAll(path.join(__dirname, 'events'));
@@ -19,6 +20,6 @@ IntervalService.startService();
     await client.login(process.argv[2]);
     return process.exit(0);
 })().catch((err) => {
-    console.log(err);
+    Logger.handleError(err);
     process.exit(1);
 });

@@ -17,6 +17,7 @@ class Configuration {
         this.greenColour = 0x00e828;
         this.redColour = 0xea0c00;
         this.orangeColour = 0xe8511f;
+        this.lightOrangeColour = 0xff720e;
         this.errorColour = 0xff0000;
 
         this.game = {
@@ -32,7 +33,8 @@ class Configuration {
         };
 
         this.intervals = {
-            changeStatus: 15000
+            changeStatus: 15000,
+            autoUnmute: 30000
         };
 
         this.regexes = {
@@ -40,7 +42,7 @@ class Configuration {
         };
 
         this.invites = {
-            bot: 'https://discordapp.com/oauth2/authorize?client_id=480338490639384576&scope=bot&permissions=8'
+            bot: 'https://shdw.cc'
         };
     }
 }

@@ -12,8 +12,7 @@ class Embed extends discord.MessageEmbed {
             }
         }
 
-        data.author = data.author !== undefined ? { name: data.author.name, icon_url: data.author.icon, url: data.author.url } : undefined;
-        data.timestamp = data.timestamp === true ? new Date() : undefined;
+        data.timestamp = data.timestamp ? new Date() : undefined;
         data.footer = data.footer !== undefined ? { text: data.footer } : undefined;
         data.color = data.color !== undefined ? data.color : Random.arrayElement(Configuration.defaultColours);
 

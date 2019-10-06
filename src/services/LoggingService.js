@@ -1,19 +1,19 @@
 const Sender = require('../utils/Sender.js');
-const Configuration = require('../utils/Configuration.js');
 const StringUtils = require('../utils/StringUtils');
+const Configuration = require('../utils/Configuration.js');
 
 class LoggingService {
     log(dbGuild, guild, color, author, message) {
         const logChannel = guild.channels.get(dbGuild.channels.log);
         const options = {
             color: color,
-            timeStamp: true
+            timestamp: true
         };
 
         if (author !== null) {
             options.author = {
                 name: author.tag,
-                icon: author.avatarURL,
+                icon_url: author.displayAvatarURL(),
                 URL: Configuration.invites.bot
             };
         }
@@ -21,17 +21,17 @@ class LoggingService {
         return Sender.send(logChannel, message, options);
     }
 
-    modLog(dbGuild, guild, action, color, reason = '', moderator, user) {
+    modLog(dbGuild, guild, action, color, reason = '', moderator, user, extraInfoKey = '', extraInfoValue = '') {
         const logChannel = guild.channels.get(dbGuild.channels.log);
         const options = {
             color: color,
-            timeStamp: true
+            timestamp: true
         };
 
         if (moderator !== null) {
             options.author = {
                 name: moderator.tag,
-                icon: moderator.avatarURL,
+                icon_url: moderator.displayAvatarURL(),
                 URL: Configuration.invites.bot
             };
         }
@@ -43,6 +43,10 @@ class LoggingService {
 
         if (!StringUtils.isNullOrWhiteSpace(reason)) {
             fields.push('Reason', reason);
+        }
+
+        if (!StringUtils.isNullOrWhiteSpace(extraInfoKey)) {
+            fields.push(extraInfoKey, extraInfoValue);
         }
 
         return Sender.sendFields(logChannel, fields, options);

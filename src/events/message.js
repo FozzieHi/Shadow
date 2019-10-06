@@ -7,6 +7,7 @@ const {Handler} = require('patron.js');
 const handler = new Handler({registry});
 const Configuration = require('../utils/Configuration.js');
 const AutoModerationService = require('../services/AutoModerationService.js');
+const Logger = require('../utils/Logger.js');
 
 client.on('message', (msg) => {
     (async () => {
@@ -22,7 +23,6 @@ client.on('message', (msg) => {
         msg.sender = sender;
 
         if (inGuild) {
-            msg.member = msg.member !== null ? msg.member : await msg.guild.fetchMember(msg.author);
             msg.dbUser = await db.userRepo.getUser(msg.author.id, msg.guild.id);
             msg.dbGuild = await db.guildRepo.getGuild(msg.guild.id);
             msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
@@ -48,7 +48,5 @@ client.on('message', (msg) => {
             }
         }
 
-    })().catch((err) => {
-        console.log(err);
-    })
+    })().catch((err) => Logger.handleError(err));
 });
