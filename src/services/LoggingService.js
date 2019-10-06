@@ -14,7 +14,7 @@ class LoggingService {
             options.author = {
                 name: author.tag,
                 icon_url: author.displayAvatarURL(),
-                URL: Configuration.invites.bot
+                url: Configuration.invites.bot
             };
         }
 
@@ -32,7 +32,7 @@ class LoggingService {
             options.author = {
                 name: moderator.tag,
                 icon_url: moderator.displayAvatarURL(),
-                URL: Configuration.invites.bot
+                url: Configuration.invites.bot
             };
         }
 

@@ -8,15 +8,20 @@ class MenuService {
     async spawnSettingsMain(msg, dbGuild, userID, type = '') {
         let logChannel = msg.guild.channels.get(dbGuild.channels.log);
         let mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
+        let messageLogChannel = msg.guild.roles.get(dbGuild.channels.messageLog);
+        let messageLogging = dbGuild.logMessages;
         logChannel !== undefined ? logChannel = '- #' + logChannel.name : logChannel = '';
         mutedRole !== undefined ? mutedRole = '- ' + mutedRole.name : mutedRole = '';
+        messageLogChannel !== undefined ? messageLogChannel = '- #' + messageLogChannel.name : messageLogChannel = '';
         const embed = new Discord.MessageEmbed()
             .setColor(Random.arrayElement(Configuration.defaultColours))
             .setTitle('Guild settings for ' + msg.guild.name)
             .setThumbnail(msg.guild.iconURL)
             .addField(`🇵 Prefix - ${dbGuild.prefix}`, 'Set the Bot\'s prefix.', true)
             .addField(`🙉 Muted role ${mutedRole}`, 'Set the Muted role.', true)
-            .addField(`📖 Log channel ${logChannel}`, `Set the Logging channel.`, true)
+            .addField(`📖 Log channel ${logChannel}`, `Set the logging channel.`, true)
+            .addField(`🔄 Message logging ${messageLogging ? Configuration.emotes.enabled : Configuration.emotes.disabled}`, (messageLogging ? `Disable` : `Enable`) + ` message logging.`, true)
+            .addField(`🖊 Message Log channel ${messageLogChannel}`, `Set the message logging channel.`, true)
             .addField(`⚒ Auto Moderation`, 'Auto Moderation submenu.', true)
             .addField('✏ Reset guild', 'Reset Shadow guild data.', true)
             .addField('📝 Reset users', 'Reset Shadow user data.', true)
@@ -31,6 +36,8 @@ class MenuService {
         await reply.react('🇵');
         await reply.react('🙉');
         await reply.react('📖');
+        await reply.react('🔄');
+        await reply.react('🖊');
         await reply.react('⚒');
         await reply.react('✏');
         await reply.react('📝');
