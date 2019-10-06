@@ -19,6 +19,10 @@ class Sender {
         return this.constructor.send(this.msg.channel, description, options);
     }
 
+    sendFields(fieldsAndValues, options) {
+        return this.constructor.sendFields(this.msg.channel, fieldsAndValues, options);
+    }
+
     static reply(msg, description, options) {
         return this.send(msg.channel, StringUtils.boldify(msg.author.tag) + ', ' + description, options);
     }
