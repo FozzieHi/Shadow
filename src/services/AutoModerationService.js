@@ -40,6 +40,19 @@ class AutoModerationService {
             return guild.ban(member.user);
         }
     }
+
+   async antiMentionSpamMsg(msg) {
+        const mentions = msg.mentions.users.size;
+
+        if (mentions >= msg.dbGuild.autoMod.mentionLimit) {
+            const role = msg.guild.roles.get(msg.dbGuild.roles.muted);
+            if (role === undefined || role === null || !msg.guild.me.hasPermission('MANAGE_ROLES') || role.position >= msg.guild.me.roles.highest.position) {
+                return LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message, but I do not have permission to give them the Muted role.`);
+            }
+            LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message so I muted them.`);
+            return msg.member.roles.add(role);
+        }
+    }
 }
 
 module.exports = new AutoModerationService();

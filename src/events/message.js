@@ -27,6 +27,7 @@ client.on('message', (msg) => {
             msg.dbGuild = await db.guildRepo.getGuild(msg.guild.id);
             msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
             msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
+            msg.dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
         }
 
         if (msg.content.startsWith(prefix)) {

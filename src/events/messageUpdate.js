@@ -11,7 +11,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
         const inGuild = newMessage.guild !== null;
 
         if (inGuild) {
-            AutoModerationService.antiAdvertisingMsg(newMessage);
+            const dbGuild = await db.guildRepo.getGuild(newMessage.guild.id);
+            dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(newMessage) : null;
+            dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(newMessage) : null;
         }
 
     })().catch((err) => Logger.handleError(err));

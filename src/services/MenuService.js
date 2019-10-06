@@ -23,7 +23,7 @@ class MenuService {
             .addField('<:exitmenu:481042834875482112> Exit', 'Exit the Settings page.', true);
         let reply;
         if (type === 'edit') {
-            await msg.clearReactions();
+            await msg.reactions.removeAll();
             reply = await msg.edit({ embed });
         } else {
             reply = await msg.channel.send({ embed });
@@ -45,10 +45,14 @@ class MenuService {
             .setTitle('Auto Moderation for ' + msg.guild.name)
             .setThumbnail(msg.guild.iconURL)
             .addField('🛑 Anti-Advert - ' + (dbGuild.autoMod.antiad ? Configuration.emotes.enabled : Configuration.emotes.disabled), (dbGuild.autoMod.antiad ? 'Disable' : 'Enable') + ' Advertising Protection.')
+            .addField('⌨ Anti-Mention Spam - ' + (dbGuild.autoMod.mention ? Configuration.emotes.enabled : Configuration.emotes.disabled), (dbGuild.autoMod.mention ? 'Disable' : 'Enable') + ' Mention Spam Protection.')
+            .addField('🗒 Anti-Mention Spam Limit - ' + (dbGuild.autoMod.mentionLimit), 'The amount of users mentioned in a single message to trigger an alert.')
             .addField('⬅ Back', 'Return back to the Main Settings page.');
-        await msg.clearReactions();
+        await msg.reactions.removeAll();
         const reply = await msg.edit({ embed });
         await reply.react('🛑');
+        await reply.react('⌨');
+        await reply.react('🗒');
         await reply.react('⬅');
         await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Push('pages.autoMod', { id: reply.id, user: userID }));
     }
@@ -56,6 +60,9 @@ class MenuService {
     async checkForNulls(msg, dbGuild) {
         if (dbGuild.autoMod.antiad === undefined || dbGuild.autoMod.antiad === null) {
             await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'autoMod.antiad': false } });
+        }
+        if (dbGuild.autoMod.mention === undefined || dbGuild.autoMod.mention === null) {
+            await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'autoMod.mention': false } });
         }
     }
 }
