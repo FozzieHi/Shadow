@@ -30,12 +30,11 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 
                         options.author = {
                             name: newMessage.author.tag,
-                            icon_url: newMessage.author.displayAvatarURL(),
-                            url: newMessage.url
+                            icon_url: newMessage.author.displayAvatarURL()
                         };
 
                         await Sender.sendFields(logChannel, [
-                            'Type', 'Message Edit',
+                            'Type', `Message Edit [Jump to message](${newMessage.url})`,
                             'Before', oldMessage.content,
                             'After', newMessage.content], options);
                     }
