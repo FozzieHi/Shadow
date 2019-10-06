@@ -25,6 +25,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
                     if (logChannel !== undefined) {
                         const options = {
                             color: Configuration.lightOrangeColour,
+                            footer: {
+                                text: 'User ID: ' + newMessage.author.id
+                            },
                             timestamp: true
                         };
 
