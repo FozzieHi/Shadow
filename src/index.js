@@ -5,9 +5,11 @@ const registry = require('./singletons/registry.js');
 const reqAbs = require('./utils/reqAbs.js');
 const path = require('path');
 const {RequireAll} = require('patron.js');
+const IntervalService = require('./services/IntervalService.js');
 
 client.registry = registry;
 RequireAll(path.join(__dirname, 'events'));
+IntervalService.startService();
 
 (async () => {
     await db.connect(credentials.mongoConnectionURL);
