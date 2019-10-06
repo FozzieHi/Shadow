@@ -19,7 +19,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
             dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(newMessage) : null;
 
             if (dbGuild.logMessages) {
-                if (newMessage.type === 'DEFAULT') {
+                if (newMessage.type === 'DEFAULT' && oldMessage.content !== newMessage.content) {
                     const logChannel = newMessage.guild.channels.get(dbGuild.channels.messageLog);
 
                     if (logChannel !== undefined) {
