@@ -22,7 +22,7 @@ class Help extends patron.Command {
         });
     }
 
-    async run(msg, args, sender) {
+    async run(msg, args) {
         if (StringUtils.isNullOrWhiteSpace(args.command)) {
             const permLevel = ModerationService.getPermLevel(msg.dbGuild, msg.member);
             const commands = msg.client.registry.commands;
@@ -82,10 +82,10 @@ class Help extends patron.Command {
             const command = msg.client.registry.commands.find((x) => x.names.some((y) => y === lowerInput));
 
             if (command === undefined) {
-                return sender.reply('This command does not exist.', { color: Configuration.errorColour });
+                return msg.sender.reply('This command does not exist.', { color: Configuration.errorColour });
             }
 
-            return sender.send('**Description:** ' + command.description +  '\n**Usage:** `' + msg.dbGuild.prefix + command.getUsage() + '`\n**Example:** `' + msg.dbGuild.prefix + command.getExample() + '`', { title: StringUtils.upperFirstChar(command.names[0]) });
+            return msg.sender.send('**Description:** ' + command.description +  '\n**Usage:** `' + msg.dbGuild.prefix + command.getUsage() + '`\n**Example:** `' + msg.dbGuild.prefix + command.getExample() + '`', { title: StringUtils.upperFirstChar(command.names[0]) });
         }
     }
 }

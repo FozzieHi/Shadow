@@ -7,6 +7,7 @@ class Stats extends patron.Command {
             names: ['stats', 'statistics', 'stat'],
             groupName: 'general',
             description: 'View Shadow\'s statistics.',
+            guildOnly: false
         });
     }
 
