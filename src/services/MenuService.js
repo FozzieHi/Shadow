@@ -10,10 +10,13 @@ class MenuService {
         let mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
         let messageLogChannel = msg.guild.roles.get(dbGuild.channels.messageLog);
         let messageLogging = dbGuild.logMessages;
+        let joinLeaveLogChannel = msg.guild.roles.get(dbGuild.channels.joinLeaveLog);
         let joinLeaveLogging = dbGuild.logJoinLeave;
         logChannel !== undefined ? logChannel = '- #' + logChannel.name : logChannel = '';
         mutedRole !== undefined ? mutedRole = '- ' + mutedRole.name : mutedRole = '';
         messageLogChannel !== undefined ? messageLogChannel = '- #' + messageLogChannel.name : messageLogChannel = '';
+        joinLeaveLogChannel !== undefined ? joinLeaveLogChannel = '- #' + joinLeaveLogChannel.name : joinLeaveLogChannel = '';
+
         const embed = new Discord.MessageEmbed()
             .setColor(Random.arrayElement(Configuration.defaultColours))
             .setTitle('Guild settings for ' + msg.guild.name)
@@ -23,6 +26,8 @@ class MenuService {
             .addField(`📖 Log channel ${logChannel}`, `Set the logging channel.`, true)
             .addField(`🔄 Message logging ${messageLogging ? Configuration.emotes.enabled : Configuration.emotes.disabled}`, (messageLogging ? `Disable` : `Enable`) + ` message logging.`, true)
             .addField(`🖊 Message Log channel ${messageLogChannel}`, `Set the message logging channel.`, true)
+            .addField(`👋 Join/Leave logging ${joinLeaveLogging ? Configuration.emotes.enabled : Configuration.emotes.disabled}`, (joinLeaveLogging ? `Disable` : `Enable`) + ` join/leave logging.`, true)
+            .addField(`✍ Join/Leave Log channel ${joinLeaveLogChannel}`, `Set the join/leave logging channel.`, true)
             .addField(`⚒ Auto Moderation`, 'Auto Moderation submenu.', true)
             .addField('✏ Reset guild', 'Reset Shadow guild data.', true)
             .addField('📝 Reset users', 'Reset Shadow user data.', true)
@@ -39,6 +44,8 @@ class MenuService {
         await reply.react('📖');
         await reply.react('🔄');
         await reply.react('🖊');
+        await reply.react('👋');
+        await reply.react('✍');
         await reply.react('⚒');
         await reply.react('✏');
         await reply.react('📝');
