@@ -6,7 +6,8 @@ class Ping extends patron.Command {
         super({
             names: ['ping'],
             groupName: 'general',
-            description: 'Get the bot\'s round trip time.'
+            description: 'Get the bot\'s round trip time.',
+            guildOnly: false
         });
     }
 
