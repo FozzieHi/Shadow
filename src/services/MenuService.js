@@ -10,6 +10,7 @@ class MenuService {
         let mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
         let messageLogChannel = msg.guild.roles.get(dbGuild.channels.messageLog);
         let messageLogging = dbGuild.logMessages;
+        let joinLeaveLogging = dbGuild.logJoinLeave;
         logChannel !== undefined ? logChannel = '- #' + logChannel.name : logChannel = '';
         mutedRole !== undefined ? mutedRole = '- ' + mutedRole.name : mutedRole = '';
         messageLogChannel !== undefined ? messageLogChannel = '- #' + messageLogChannel.name : messageLogChannel = '';

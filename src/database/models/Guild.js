@@ -3,6 +3,7 @@ class Guild {
         this.guildId = guildId;
         this.prefix = 's$';
         this.logMessages = false;
+        this.logJoinLeave = false;
         this.autoMod = {
             antiad: false,
             mention: false,
@@ -18,7 +19,8 @@ class Guild {
         };
         this.channels = {
             log: undefined,
-            messageLog: undefined
+            messageLog: undefined,
+            joinLeaveLog: undefined
         }
     }
 }
