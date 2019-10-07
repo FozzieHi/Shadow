@@ -61,9 +61,9 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                     return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.messageLog': channel.id } });
                 }
             }
-            if (reaction === '🖊') { // Change message logging channels.
+            if (reaction === '🖊') { // Change message logging channel.
                 const filter = m => m.author.id === user.id;
-                await sender.send('What would you like the channel to log message edits/deletes be?');
+                await sender.send('What would you like the channel to log message edits/deletes to be?');
                 const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
                 const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
                 if (channel === undefined || channel === null) {
@@ -71,6 +71,33 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 }
                 await sender.send('Successfully set ' + channel.name + ' as the message logging channel.');
                 return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.messageLog': channel.id } });
+            }
+            if (reaction === '👋') { // Toggle join leave logging.
+                const updated = !dbGuild.logJoinLeave;
+                await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'logJoinLeave': (dbGuild.logJoinLeave === undefined ? true : updated) } });
+                let channel = msg.guild.channels.get(dbGuild.channels.joinLeaveLog);
+                if (updated && dbGuild.channels.joinLeaveLog === undefined || channel === undefined) {
+                    const filter = m => m.author.id === user.id;
+                    await sender.send('What would you like the channel to log join/leaves to be?');
+                    const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
+                    const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                    if (channel === undefined || channel === null) {
+                        return sender.send('Could not find Text Channel #' + newChannel.first().content);
+                    }
+                    await sender.send('Successfully set ' + channel.name + ' as the join/leave logging channel and enabled join/leave logging.');
+                    return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.joinLeaveLog': channel.id } });
+                }
+            }
+            if (reaction === '✍') { // Change join/leave logging channel.
+                const filter = m => m.author.id === user.id;
+                await sender.send('What would you like the channel to log join/leaves to be?');
+                const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
+                const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                if (channel === undefined || channel === null) {
+                    return sender.send('Could not find Text Channel #' + newChannel.first().content);
+                }
+                await sender.send('Successfully set ' + channel.name + ' as the join/leave logging channel.');
+                return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'channels.joinLeaveLog': channel.id } });
             }
             if (reaction === '⚒') { // Auto Mod.
                 return MenuService.spawnAutoMod(msg, dbGuild, user.id);
