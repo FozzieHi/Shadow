@@ -3,8 +3,3 @@ node_js:
 - 'node'
 - 'lts/*'
 script: node src/travis.js $TOKEN
-jobs:
-  include:
-    - stage: "Vulnerability scan"
-      script: snyk test
-      after_success: snyk monitor

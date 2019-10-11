@@ -1,15 +1,15 @@
 const patron = require('patron.js');
-const db = require('../../database');
+const db = require('../../database'); // lgtm [js/unused-local-variable]
 const util = require('util');
 const Configuration = require('../../utils/Configuration.js');
-const discord = require('discord.js');
+const discord = require('discord.js'); // lgtm [js/unused-local-variable]
 
 class Eval extends patron.Command {
     constructor() {
         super({
             names: ['eval'],
             groupName: 'botowners',
-            description: 'Evalute JavaScript code.',
+            description: 'Evaluate JavaScript code.',
             guildOnly: false,
             args: [
                 new patron.Argument({
@@ -26,6 +26,10 @@ class Eval extends patron.Command {
     async run(msg, args) {
         try {
             const client = msg.client;
+
+            if (args.code.includes(".token")) {
+                return msg.sender.reply('You cannot access the client token using the eval command.', { color: Configuration.errorColour });
+            }
 
             let result = eval(args.code);
 

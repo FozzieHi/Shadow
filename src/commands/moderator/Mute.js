@@ -69,9 +69,9 @@ class Mute extends patron.Command {
             return msg.sender.reply('The muted role has been deleted. Please set a new one with the `' + msg.dbGuild.prefix + 'settings` command.', { color: Configuration.errorColour });
         }
 
-        await msg.sender.reply('Successfully muted ' + StringUtils.boldify(args.member.user.tag) + ' for ' + timeNum + ' ' + timeUnit + (parseInt(timeNum) !== 1 ? 's' : '') + '.');
         await args.member.roles.add(role);
         await db.muteRepo.insertMute(args.member.id, msg.guild.id, timeMS);
+        await msg.sender.reply('Successfully muted ' + StringUtils.boldify(args.member.user.tag) + ' for ' + timeNum + ' ' + timeUnit + (parseInt(timeNum) !== 1 ? 's' : '') + '.');
         return ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Mute', args.member.user, msg.author, args.reason, msg.sender, 'Length', timeNum + ' ' + timeUnit);
     }
 }
