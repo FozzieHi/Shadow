@@ -6,7 +6,7 @@ class Clear extends patron.Command {
     constructor() {
         super({
             names: ['clear', 'prune', 'clearchat', 'chatclear', 'purge'],
-            groupName: 'moderation',
+            groupName: 'moderator',
             description: 'Clear up to 200 messages in any text channel.',
             botPermissions: ['MANAGE_MESSAGES'],
             preconditions: ['clear'],
