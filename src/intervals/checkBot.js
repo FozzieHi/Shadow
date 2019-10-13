@@ -21,9 +21,9 @@ client.setInterval(() => {
                 return lastMem = currentMem;
             }
 
-            if ((currentMem - lastMem) > 20) {
+            if ((currentMem - lastMem).toFixed(2) > 25) {
                 await Sender.sendFields(channel,
-                    ['Status', 'Memory usage has increased by ' + (currentMem - lastMem) + 'MB in the last 5 minutes.',
+                    ['Status', 'Memory usage has increased by ' + (currentMem - lastMem).toFixed(2) + 'MB in the last 5 minutes.',
                         'Current Usage', currentMem + 'MB',
                         'Usage Five Minutes Ago', lastMem + 'MB'], { color: Configuration.orangeColour, timestamp: true });
                 return lastMem = currentMem;
