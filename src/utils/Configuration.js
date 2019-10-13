@@ -41,7 +41,8 @@ class Configuration {
 
         this.intervals = {
             changeStatus: 15000,
-            autoUnmute: 30000
+            autoUnmute: 30000,
+            checkBot: 300000
         };
 
         this.regexes = {
