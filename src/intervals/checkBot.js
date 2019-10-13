@@ -15,14 +15,14 @@ client.setInterval(() => {
             return Sender.sendFields(channel,
                 ['Status', 'Memory usage has exceeded 500MB',
                 'Current Usage', currentMem + 'MB',
-                'Usage Five Minutes Ago', lastMem + 'MB'], { color: Configuration.errorColour })
+                'Usage Five Minutes Ago', lastMem + 'MB'], { color: Configuration.errorColour, timestamp: true })
         }
 
         if ((currentMem - lastMem) > 20) {
             return Sender.sendFields(channel,
                 ['Status', 'Memory usage has increased by ' + (currentMem - lastMem) + 'MB in the last 5 minutes.',
                 'Current Usage', currentMem + 'MB',
-                'Usage Five Minutes Ago', lastMem + 'MB']);
+                'Usage Five Minutes Ago', lastMem + 'MB'], { timestamp: true });
         }
     })().catch((err) => Logger.handleError(err));
 }, Configuration.intervals.checkBot);
