@@ -9,6 +9,6 @@ client.on('ready', async () => {
         await Logger.log("Shadow has successfully connected.", 'INFO');
         const guild = await client.guilds.get('480320873534849025');
         const channel = await guild.channels.get('632899724533563411');
-        return Sender.send(channel, 'Shadow has connected.');
+        return Sender.send(channel, 'Shadow has connected.', { color: Configuration.greenColour, timestamp: true });
     })().catch((err) => Logger.handleError(err));
 });
