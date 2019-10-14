@@ -1,7 +1,7 @@
 # Shadow [![Build Status](https://travis-ci.com/FozzieHi/Shadow.svg?branch=master)](https://travis-ci.com/FozzieHi/Shadow)
 A Discord bot written in node.js using discord.js &amp; patron.js
 
-# [Invite](https://discordapp.com/oauth2/authorize?client_id=480338490639384576&scope=bot&permissions=2080898295)
+# [Invite](https://shdw.cc)
 
 # How to run
 Create a file called `credentials.json` in the src folder.
