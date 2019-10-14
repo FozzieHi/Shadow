@@ -22,7 +22,7 @@ class ModRoles extends patron.Command {
         for (let i = 0; i < modRoleList.length; i++) {
             const rank = msg.guild.roles.find((x) => x.id === modRoleList[i].id);
 
-            description += rank + ': ' + modRoleList[i].permissionLevel + '\n';
+            description += rank.toString() + ': ' + modRoleList[i].permissionLevel + '\n';
         }
 
         return msg.sender.send(description + '\n**Permission Levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Owner\n\nYour permission level: ' + ModerationService.getPermLevelStr(msg.dbGuild, msg.member), { title: 'Moderation Roles' });

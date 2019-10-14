@@ -31,7 +31,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 if (role === undefined || role === null) {
                     return sender.send('Could not find the role ' + mutedRole.first().content);
                 }
-                await sender.send('Successfully set the Muted role to ' + role);
+                await sender.send('Successfully set the Muted role to ' + role.toString());
                 return db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'roles.muted': role.id } });
             }
             if (reaction === '📖') { // Change log channel.
@@ -145,7 +145,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                     if (role === undefined || role === null) {
                         return sender.send('Could not find the role ' + mutedRoleNew.first().content);
                     }
-                    await sender.send('Successfully set the Muted role to ' + role);
+                    await sender.send('Successfully set the Muted role to ' + role.toString());
                     await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'roles.muted': role.id } });
                 }
                 if (protection) {
