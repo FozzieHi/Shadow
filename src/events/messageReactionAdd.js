@@ -160,6 +160,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
 
                 if (result.size === 1) {
                     await sender.send('Successfully reset your Guild\'s Shadow data.');
+                    await WorkerService.deleteURL(dbGuild.vanityURL);
                     return db.guildRepo.deleteGuilds(msg.guild.id);
                 }
             }

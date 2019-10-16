@@ -8,7 +8,23 @@ class WorkerService {
             method: 'POST',
             headers: {
                 'Vanity-URL': vanityName,
-                'Invite': inviteCode
+                'Invite': inviteCode,
+                'Action': 'Add'
+            }
+        };
+
+        request(options, function (err, res, body) {
+            console.log(res.status + "; " + res.body);
+        });
+    }
+
+    async deleteURL(vanityName) {
+        const options = {
+            url: 'https://vanity.shdw.cc',
+            method: 'POST',
+            headers: {
+                'Vanity-URL': vanityName,
+                'Action': 'Delete'
             }
         };
 
