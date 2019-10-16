@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "dependencies": {
+    "@sagi.io/workers-kv": "0.0.6",
+    "cloudflare-kv": "^1.1.0",
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "mongodb": "2.2.33",
     "path": "^0.12.7",
     "patron.js": "^3.1.0",
+    "request": "^2.88.0",
     "snyk": "^1.234.0"
   }
 }

@@ -22,6 +22,7 @@ class MenuService {
             .setTitle('Guild settings for ' + msg.guild.name)
             .setThumbnail(msg.guild.iconURL)
             .addField(`🇵 Prefix - ${dbGuild.prefix}`, 'Set the Bot\'s prefix.', true)
+            .addField(`📎 Vanity URL`, 'Set the vanity invite link.', true)
             .addField(`🙉 Muted role ${mutedRole}`, 'Set the Muted role.', true)
             .addField(`📖 Log channel ${logChannel}`, `Set the logging channel.`, true)
             .addField(`🔄 Message logging ${messageLogging ? Configuration.emotes.enabled : Configuration.emotes.disabled}`, (messageLogging ? `Disable` : `Enable`) + ` message logging.`, true)
@@ -40,6 +41,7 @@ class MenuService {
             reply = await msg.channel.send({ embed });
         }
         await reply.react('🇵');
+        await reply.react('📎');
         await reply.react('🙉');
         await reply.react('📖');
         await reply.react('🔄');

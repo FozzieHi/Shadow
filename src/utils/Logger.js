@@ -5,7 +5,6 @@ const path = require('path');
 const logsPath = path.join(__dirname, '../../logs');
 const appendFile = util.promisify(fs.appendFile);
 
-
 class Logger {
     constructor() {
         if (fs.existsSync(logsPath) === false) {

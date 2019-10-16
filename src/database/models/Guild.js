@@ -2,6 +2,7 @@ class Guild {
     constructor(guildId) {
         this.guildId = guildId;
         this.prefix = 's$';
+        this.vanityURL = '';
         this.logMessages = false;
         this.logJoinLeave = false;
         this.autoMod = {

@@ -71,7 +71,7 @@ class Help extends patron.Command {
                 }
             }
 
-            message += '\nYou can find a specific command\'s information by using `$help [Command]`\n\n**Shadow** is made by **Fozzie#0001**, **Brandon14#0131**, **Jayden 🎃#8080**';
+            message += '\nYou can find a specific command\'s information by using `$help [Command]`\n\n**Shadow** is made by **Fozzie#0001**, **Brandon14#0131**, **Jayden 🎃#8080**\n\nFor additional Shadow support we have a [support server!](https://shdw.cc/i/shadow)';
             await msg.sender.dm(message);
             return msg.sender.reply('Successfully DMed you all command information.');
         } else {
