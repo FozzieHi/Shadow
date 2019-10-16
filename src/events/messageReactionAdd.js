@@ -30,6 +30,9 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 if (StringUtils.isNullOrWhiteSpace(dbGuild.vanityURL)) {
                     sender.send('What would you like your vanity URL to be?');
                     const newVanityURL = await msg.channel.awaitMessages(filter, {max: 1});
+                    if (newVanityURL.first().content.trim().length < 2) {
+                        return sender.send('The vanity URL name must be at least 2 characters long.');
+                    }
                     if (!StringUtils.isNullOrWhiteSpace(await WorkerService.getURL(newVanityURL.first().content))) {
                         return sender.send('That vanity URL is already taken.', { color: Configuration.errorColour });
                     }
@@ -49,6 +52,9 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                     if (response.first().content === "yes" || response.first().content === "y" || response.first().content === "ya") {
                         sender.send('What would you like your vanity URL to be?');
                         const newVanityURL = await msg.channel.awaitMessages(filter, {max: 1});
+                        if (newVanityURL.first().content.trim().length < 2) {
+                            return sender.send('The vanity URL name must be at least 2 characters long.');
+                        }
                         if (!StringUtils.isNullOrWhiteSpace(await WorkerService.getURL(newVanityURL.first().content))) {
                             return sender.send('That vanity URL is already taken.', { color: Configuration.errorColour });
                         }
