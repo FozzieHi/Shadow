@@ -65,6 +65,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                             return sender.send('Could not find Text Channel #' + inviteChannel.first().content);
                         }
                         const inviteCode = await channel.createInvite({maxAge: 0, reason: 'Shadow vanity URL.'});
+                        await WorkerService.deleteURL(dbGuild.vanityURL);
                         await WorkerService.addURL(newVanityURL.first().content, inviteCode.code);
                         await db.guildRepo.upsertGuild(msg.guild.id, {$set: {'vanityURL': newVanityURL.first().content}});
                         return sender.send(`${msg.guild.name}'s invite link is now available at https://shdw.cc/i/` + newVanityURL.first().content);
