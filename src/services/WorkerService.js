@@ -14,7 +14,7 @@ class WorkerService {
         };
 
         request(options, function (err, res, body) {
-            console.log(res.status + "; " + res.body);
+            console.log(res.statusCode + "; " + body);
         });
     }
 
@@ -29,23 +29,8 @@ class WorkerService {
         };
 
         request(options, function (err, res, body) {
-            console.log(res.status + "; " + res.body);
+            console.log(res.statusCode + "; " + body);
         });
-    }
-
-    async getURL(vanityURL) {
-        const options = {
-            url: 'https://vanity.shdw.cc',
-            method: 'GET',
-            headers: {
-                'Vanity-URL': vanityURL,
-            }
-        };
-        let vanityCode = '';
-        request(options, function (err, res, body) {
-            vanityCode = res.body;
-        });
-        return vanityCode;
     }
 }
 

@@ -5,6 +5,7 @@ const Sender = require('../utils/Sender.js');
 const MenuService = require('../services/MenuService.js');
 const StringUtils = require('../utils/StringUtils.js');
 const WorkerService = require('../services/WorkerService.js');
+const request = require('request');
 
 client.on('messageReactionAdd', async (messageReaction, user) => {
     if (user.bot) {
@@ -33,29 +34,15 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                     if (newVanityURL.first().content.trim().length < 2) {
                         return sender.send('The vanity URL name must be at least 2 characters long.');
                     }
-                    if (!StringUtils.isNullOrWhiteSpace(await WorkerService.getURL(newVanityURL.first().content))) {
-                        return sender.send('That vanity URL is already taken.', { color: Configuration.errorColour });
-                    }
-                    sender.send('What channel would you like your invite code to invite to?');
-                    const inviteChannel = await msg.channel.awaitMessages(filter, {max: 1});
-                    const channel = msg.guild.channels.find(channel => channel.name === inviteChannel.first().content);
-                    if (channel === undefined || channel === null) {
-                        return sender.send('Could not find Text Channel #' + inviteChannel.first().content);
-                    }
-                    const inviteCode = await channel.createInvite({maxAge: 0, reason: 'Shadow vanity URL.'});
-                    await WorkerService.addURL(newVanityURL.first().content, inviteCode.code);
-                    await db.guildRepo.upsertGuild(msg.guild.id, {$set: {'vanityURL': newVanityURL.first().content}});
-                    return sender.send(`${msg.guild.name}'s invite link is now available at https://shdw.cc/i/` + newVanityURL.first().content);
-                } else {
-                    sender.send('You currently already have https://shdw.cc/i/' + dbGuild.vanityURL + ' active, would you like to replace it?');
-                    const response = await msg.channel.awaitMessages(filter, {max: 1});
-                    if (response.first().content === "yes" || response.first().content === "y" || response.first().content === "ya") {
-                        sender.send('What would you like your vanity URL to be?');
-                        const newVanityURL = await msg.channel.awaitMessages(filter, {max: 1});
-                        if (newVanityURL.first().content.trim().length < 2) {
-                            return sender.send('The vanity URL name must be at least 2 characters long.');
+                    const options = {
+                        url: 'https://vanity.shdw.cc',
+                        method: 'GET',
+                        headers: {
+                            'Vanity-URL': newVanityURL.first().content,
                         }
-                        if (!StringUtils.isNullOrWhiteSpace(await WorkerService.getURL(newVanityURL.first().content))) {
+                    };
+                    request(options, async function (err, res, body) {
+                        if (!StringUtils.isNullOrWhiteSpace(body)) {
                             return sender.send('That vanity URL is already taken.', { color: Configuration.errorColour });
                         }
                         sender.send('What channel would you like your invite code to invite to?');
@@ -65,10 +52,42 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                             return sender.send('Could not find Text Channel #' + inviteChannel.first().content);
                         }
                         const inviteCode = await channel.createInvite({maxAge: 0, reason: 'Shadow vanity URL.'});
-                        await WorkerService.deleteURL(dbGuild.vanityURL);
                         await WorkerService.addURL(newVanityURL.first().content, inviteCode.code);
                         await db.guildRepo.upsertGuild(msg.guild.id, {$set: {'vanityURL': newVanityURL.first().content}});
                         return sender.send(`${msg.guild.name}'s invite link is now available at https://shdw.cc/i/` + newVanityURL.first().content);
+                    });
+                } else {
+                    sender.send('You currently already have https://shdw.cc/i/' + dbGuild.vanityURL + ' active, would you like to replace it?');
+                    const response = await msg.channel.awaitMessages(filter, {max: 1});
+                    if (response.first().content === "yes" || response.first().content === "y" || response.first().content === "ya") {
+                        sender.send('What would you like your vanity URL to be?');
+                        const newVanityURL = await msg.channel.awaitMessages(filter, {max: 1});
+                        if (newVanityURL.first().content.trim().length < 2) {
+                            return sender.send('The vanity URL name must be at least 2 characters long.');
+                        }
+                        const options = {
+                            url: 'https://vanity.shdw.cc',
+                            method: 'GET',
+                            headers: {
+                                'Vanity-URL': newVanityURL.first().content,
+                            }
+                        };
+                        request(options, async function (err, res, body) {
+                            if (!StringUtils.isNullOrWhiteSpace(body)) {
+                                return sender.send('That vanity URL is already taken.', { color: Configuration.errorColour });
+                            }
+                            sender.send('What channel would you like your invite code to invite to?');
+                            const inviteChannel = await msg.channel.awaitMessages(filter, {max: 1});
+                            const channel = msg.guild.channels.find(channel => channel.name === inviteChannel.first().content);
+                            if (channel === undefined || channel === null) {
+                                return sender.send('Could not find Text Channel #' + inviteChannel.first().content);
+                            }
+                            const inviteCode = await channel.createInvite({maxAge: 0, reason: 'Shadow vanity URL.'});
+                            await WorkerService.deleteURL(dbGuild.vanityURL);
+                            await WorkerService.addURL(newVanityURL.first().content, inviteCode.code);
+                            await db.guildRepo.upsertGuild(msg.guild.id, {$set: {'vanityURL': newVanityURL.first().content}});
+                            return sender.send(`${msg.guild.name}'s invite link is now available at https://shdw.cc/i/` + newVanityURL.first().content);
+                        });
                     } else {
                         return sender.send('Vanity URL setup cancelled.');
                     }
