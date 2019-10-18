@@ -1,4 +1,4 @@
-# Shadow [![Build Status](https://travis-ci.com/FozzieHi/Shadow.svg?branch=master)](https://travis-ci.com/FozzieHi/Shadow)
+# Shadow [![Build Status](https://github.com/FozzieHi/Shadow/workflows/CI/badge.svg)](https://github.com/FozzieHi/Shadow/actions)
 A Discord bot written in node.js using discord.js &amp; patron.js
 
 # [Invite](https://shdw.cc)
