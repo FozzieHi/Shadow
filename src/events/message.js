@@ -45,7 +45,7 @@ client.on('message', (msg) => {
                         break;
                     case patron.CommandError.Exception:
                         if (result.error instanceof discord.DiscordAPIError) {
-                            if (result.error.code === 0 || result.error.code === 404 || result.error.code === 50013 || result.error.code === 403) {
+                            if (result.error.code === 0 || result.error.code === 404 || result.error.code === 40001 || result.error.code === 50001 || result.error.code === 50013 || result.error.code === 403) {
                                 message = `I do not have permission to do that (${result.error.code})`;
                             } else if (result.error.code === 50007) {
                                 message = `I do not have permission to DM that user.`;
