@@ -21,7 +21,7 @@ client.setInterval(() => {
                 return lastMem = currentMem;
             }
 
-            if ((currentMem - lastMem).toFixed(2) > 25) {
+            if ((currentMem - lastMem).toFixed(2) > 30) {
                 await Sender.sendFields(channel,
                     ['Status', 'Memory usage has increased by ' + (currentMem - lastMem).toFixed(2) + 'MB in the last 5 minutes.',
                         'Current Usage', currentMem + 'MB',

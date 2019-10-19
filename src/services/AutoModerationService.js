@@ -8,10 +8,10 @@ class AutoModerationService {
         const content = msg.content.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(content)) {
             if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
-                return LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Bypassed the Anti Advertising module but posted an advertisement in ${msg.channel}\n\n**Message:** ${msg.content}`);
+                return LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Bypassed the Anti Advertising module by posting an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
             }
             msg.delete();
-            LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Posted an advertisement in ${msg.channel}\n\n**Message:** ${msg.content}`);
+            LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Posted an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
         }
     }
 
@@ -47,9 +47,9 @@ class AutoModerationService {
         if (mentions >= msg.dbGuild.autoMod.mentionLimit) {
             const role = msg.guild.roles.get(msg.dbGuild.roles.muted);
             if (role === undefined || role === null || !msg.guild.me.hasPermission('MANAGE_ROLES') || role.position >= msg.guild.me.roles.highest.position) {
-                return LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message, but I do not have permission to give them the Muted role.`);
+                return LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message, but I do not have permission to give them the Muted role. [Jump to message](${msg.url})`);
             }
-            LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message so I muted them.`);
+            LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message so I muted them. [Jump to message](${msg.url})`);
             return msg.member.roles.add(role);
         }
     }
