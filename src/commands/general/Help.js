@@ -33,16 +33,16 @@ class Help extends patron.Command {
             for (let i = 0; i < commands.length; i++) {
                 switch (commands[i].group.name) {
                     case 'general':
-                        generalCommands.push({"name": '$' + commands[i].names[0], "description": commands[i].description});
+                        generalCommands.push({"name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description});
                         break;
                     case 'moderator':
-                        moderatorCommands.push({ "name": '$' + commands[i].names[0], "description": commands[i].description });
+                        moderatorCommands.push({ "name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description });
                         break;
                     case 'administrator':
-                        adminCommands.push({ "name": '$' + commands[i].names[0], "description": commands[i].description });
+                        adminCommands.push({ "name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description });
                         break;
                     case 'guildowner':
-                        ownerCommands.push({ "name": '$' + commands[i].names[0], "description": commands[i].description });
+                        ownerCommands.push({ "name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description });
                         break;
                 }
             }
@@ -71,7 +71,7 @@ class Help extends patron.Command {
                 }
             }
 
-            message += '\nYou can find a specific command\'s information by using `$help [Command]`\n\n**Shadow** is made by **Fozzie#0001**, **Brandon14#0131**, **Jayden 🎃#8080**\n\nFor additional Shadow support we have a [support server!](https://shdw.cc/i/shadow)';
+            message += '\nYou can find a specific command\'s information by using `' + msg.dbGuild.prefix + 'help [Command]`\n\n**Shadow** is made by **Fozzie#0001**, **Brandon14#0131**, **Jayden 🎃#8080**\n\nFor additional Shadow support we have a [support server!](https://shdw.cc/i/shadow)';
             await msg.sender.dm(message);
             return msg.sender.reply('Successfully DMed you all command information.');
         } else {
