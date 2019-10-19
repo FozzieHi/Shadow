@@ -31,6 +31,8 @@ class InviteLookup extends patron.Command {
 
             return msg.sender.sendFields([
                 'Guild', invite.guild.name,
+                'Members', invite.memberCount,
+                'Online', invite.presenceCount,
                 'Channel', invite.channel.toString(),
                 'Inviter', invite.inviter.tag
             ], options);
