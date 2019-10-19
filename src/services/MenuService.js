@@ -20,7 +20,7 @@ class MenuService {
         const embed = new Discord.MessageEmbed()
             .setColor(Random.arrayElement(Configuration.defaultColours))
             .setTitle('Guild settings for ' + msg.guild.name)
-            .setThumbnail(msg.guild.iconURL)
+            .setThumbnail(msg.guild.iconURL())
             .addField(`🇵 Prefix - ${dbGuild.prefix}`, 'Set the Bot\'s prefix.', true)
             .addField(`📎 Vanity URL`, 'Set the vanity invite link.', true)
             .addField(`🙉 Muted role ${mutedRole}`, 'Set the Muted role.', true)
