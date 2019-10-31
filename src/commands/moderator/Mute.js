@@ -21,9 +21,9 @@ class Mute extends patron.Command {
                     preconditions: ['nomoderator']
                 }),
                 new patron.Argument({
-                    name: 'time',
-                    key: 'time',
-                    type: 'string',
+                    name: 'length',
+                    key: 'length',
+                    type: 'timelength',
                     example: '10m'
                 }),
                 new patron.Argument({
@@ -39,25 +39,6 @@ class Mute extends patron.Command {
 
     async run(msg, args) {
         const role = msg.guild.roles.get(msg.dbGuild.roles.muted);
-        const time = args.time.toLowerCase();
-        const timeNum = time.replace(/\D/g, '');
-        let timeMS;
-        let timeUnit;
-        if (time.includes("h")) {
-            timeMS = NumericUtils.hoursToMs(timeNum);
-            timeUnit = 'hour';
-        } else if (time.includes("m")) {
-            timeMS = NumericUtils.minutesToMs(timeNum);
-            timeUnit = 'minute';
-        } else if (time.includes("d")) {
-            timeMS = NumericUtils.daysToMs(timeNum);
-            timeUnit = 'day';
-        } else if (!isNaN(time)) {
-            timeMS = NumericUtils.minutesToMs(timeNum);
-            timeUnit = 'minute';
-        } else {
-            return msg.sender.reply('Invalid time format, formats: h (Hours), m (Minutes), d (Days).', { color: Configuration.errorColour });
-        }
 
         if (msg.dbGuild.roles.muted === null) {
             return msg.sender.reply('Set a muted role with the `' + msg.dbGuild.prefix + 'settings` command before you can mute users.', { color: Configuration.errorColour });
@@ -70,9 +51,9 @@ class Mute extends patron.Command {
         }
 
         await args.member.roles.add(role);
-        await db.muteRepo.insertMute(args.member.id, msg.guild.id, timeMS);
-        await msg.sender.reply('Successfully muted ' + StringUtils.boldify(args.member.user.tag) + ' for ' + timeNum + ' ' + timeUnit + (parseInt(timeNum) !== 1 ? 's' : '') + '.');
-        return ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Mute', args.member.user, msg.author, args.reason, msg.sender, 'Length', timeNum + ' ' + timeUnit);
+        await db.muteRepo.insertMute(args.member.id, msg.guild.id, args.length.ms);
+        await msg.sender.reply('Successfully muted ' + StringUtils.boldify(args.member.user.tag) + ' for ' + args.length.num + ' ' + args.length.unit + '.');
+        return ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Mute', args.member.user, msg.author, args.reason, msg.sender, 'Length', args.length.num + ' ' + args.length.unit);
     }
 }
 

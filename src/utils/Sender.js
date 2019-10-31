@@ -49,7 +49,7 @@ class Sender {
         options.fields = [];
 
         for (let i = 0; i < fieldsAndValues.length - 1; i++) {
-            if (NumericUtils.isEven(i) === true) {
+            if (NumericUtils.isEven(i)) {
                 options.fields.push({ name: fieldsAndValues[i], value: fieldsAndValues[i + 1] });
             }
         }
