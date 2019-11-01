@@ -38,9 +38,9 @@ class TempBan extends patron.Command {
 
     async run(msg, args) {
         await db.banRepo.insertBan(args.user.id, msg.guild.id, args.length.ms);
-        await msg.guild.members.ban(args.user, { reason: `(${msg.author.tag}) ${args.reason}` });
-        await msg.sender.reply(`Successfully banned ${StringUtil.boldify(args.user.tag)} for ${args.time.num} ${args.time.unit}.`);
-        return ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Temporary Ban', args.user, msg.author, args.reason, msg.sender, 'Length', args.length.num + ' ' + args.length.unit);
+        await msg.sender.reply(`Successfully banned ${StringUtil.boldify(args.user.tag)} for ${args.length.num} ${args.length.unit}.`);
+        await ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Temporary Ban', 'temporarily banned', args.user, msg.author, args.reason, msg.sender, 'Length', args.length.num + ' ' + args.length.unit);
+        return msg.guild.members.ban(args.user, { reason: `(${msg.author.tag}) ${args.reason}` });
     }
 }
 

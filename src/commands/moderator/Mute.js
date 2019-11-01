@@ -53,7 +53,7 @@ class Mute extends patron.Command {
         await args.member.roles.add(role);
         await db.muteRepo.insertMute(args.member.id, msg.guild.id, args.length.ms);
         await msg.sender.reply('Successfully muted ' + StringUtils.boldify(args.member.user.tag) + ' for ' + args.length.num + ' ' + args.length.unit + '.');
-        return ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Mute', args.member.user, msg.author, args.reason, msg.sender, 'Length', args.length.num + ' ' + args.length.unit);
+        return ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Mute', 'muted', args.member.user, msg.author, args.reason, msg.sender, 'Length', args.length.num + ' ' + args.length.unit);
     }
 }
 
