@@ -1,7 +1,8 @@
 const { TypeReader, TypeReaderResult } = require("patron.js");
 const NumericUtils = require('../utils/NumericUtils.js');
+const StringUtils = require('../utils/StringUtils.js');
 
-class TimeType extends TypeReader {
+class TimeLengthType extends TypeReader {
     constructor() {
         super({ type: 'timelength' });
     }
@@ -11,18 +12,21 @@ class TimeType extends TypeReader {
         const timeNum = time.replace(/\D/g, '');
         let timeMS;
         let timeUnit;
+        if (StringUtils.isNullOrWhiteSpace(timeNum)) {
+            return TypeReaderResult.fromError(command, 'Invalid time format, formats: h (Hours), m (Minutes), d (Days).');
+        }
         if (time.includes("h")) {
             timeMS = NumericUtils.hoursToMs(timeNum);
-            timeUnit = 'hour';
+            timeUnit = 'hours';
         } else if (time.includes("m")) {
             timeMS = NumericUtils.minutesToMs(timeNum);
-            timeUnit = 'minute';
+            timeUnit = 'minutes';
         } else if (time.includes("d")) {
             timeMS = NumericUtils.daysToMs(timeNum);
-            timeUnit = 'day';
+            timeUnit = 'days';
         } else if (!isNaN(time)) {
             timeMS = NumericUtils.minutesToMs(timeNum);
-            timeUnit = 'minute';
+            timeUnit = 'minutes';
         } else {
             return TypeReaderResult.fromError(command, 'Invalid time format, formats: h (Hours), m (Minutes), d (Days).');
         }
@@ -31,4 +35,4 @@ class TimeType extends TypeReader {
     }
 }
 
-module.exports = new TimeType();
+module.exports = new TimeLengthType();
