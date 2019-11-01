@@ -40,4 +40,4 @@ client.setInterval(() => {
             await LoggingService.modLog(dbGuild, guild, 'Automatic Unban', Configuration.greenColour, '', null, user);
         }
     })().catch((err) => Logger.handleError(err));
-}, Configuration.intervals.autoUnmute);
+}, Configuration.intervals.autoUnban);
