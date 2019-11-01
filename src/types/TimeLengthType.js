@@ -17,16 +17,16 @@ class TimeLengthType extends TypeReader {
         }
         if (time.includes("h")) {
             timeMS = NumericUtils.hoursToMs(timeNum);
-            timeUnit = 'hours';
+            timeUnit = 'hour';
         } else if (time.includes("m")) {
             timeMS = NumericUtils.minutesToMs(timeNum);
-            timeUnit = 'minutes';
+            timeUnit = 'minute';
         } else if (time.includes("d")) {
             timeMS = NumericUtils.daysToMs(timeNum);
-            timeUnit = 'days';
+            timeUnit = 'day';
         } else if (!isNaN(time)) {
             timeMS = NumericUtils.minutesToMs(timeNum);
-            timeUnit = 'minutes';
+            timeUnit = 'minute';
         } else {
             return TypeReaderResult.fromError(command, 'Invalid time format, formats: h (Hours), m (Minutes), d (Days).');
         }
