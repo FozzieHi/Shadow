@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const UserRepository = require('../repositories/UserRepository.js');
 const GuildRepository = require('../repositories/GuildRepository.js');
 const MuteRepository = require('../repositories/MuteRepository.js');
+const BanRepository = require('../repositories/BanRepository.js');
 
 class Database {
     constructor() {
@@ -9,7 +10,8 @@ class Database {
             Guild: require('../queries/GuildQuery.js'),
             Id: require('../queries/IdQuery.js'),
             User: require('../queries/UserQuery.js'),
-            Mute: require('../queries/MuteQuery.js')
+            Mute: require('../queries/MuteQuery.js'),
+            Ban: require('../queries/BanQuery.js')
         };
 
         this.updates = {
@@ -20,7 +22,8 @@ class Database {
         this.models = {
             Guild: require('../models/Guild.js'),
             User: require('../models/User.js'),
-            Mute: require('../models/Mute.js')
+            Mute: require('../models/Mute.js'),
+            Ban: require('../models/Ban.js')
         };
     }
 
@@ -30,6 +33,7 @@ class Database {
         this.guildRepo = new GuildRepository(await db.createCollection('guilds'));
         this.userRepo = new UserRepository(await db.createCollection('users'));
         this.muteRepo = new MuteRepository(await db.createCollection('mutes'));
+        this.banRepo = new BanRepository(await db.createCollection('bans'));
 
         await db.collection('guilds').createIndex('guildId', { unique: true });
     }
