@@ -30,6 +30,17 @@ class AutoModerationService {
         }
     }
 
+    antiAdvertisingPresence(dbGuild, member, guild, presence) {
+        presence = presence.split(' ').join('').toLowerCase();
+        if (Configuration.regexes.antiad.test(presence)) {
+            if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
+                return LoggingService.log(dbGuild, guild, Configuration.orangeColour, member.user, `Bypassed the Anti Advertising module but has an advertisement in their presence.\n\n**Presence:** ${presence}`);
+            }
+            LoggingService.log(dbGuild, guild, Configuration.orangeColour, member.user, `Had an advertisement in their presence so I banned them.\n\n**Presence:** ${presence}`);
+            return guild.ban(member.user);
+        }
+    }
+
     antiAdvertisingUsername(dbGuild, member, guild, username) {
         username = username.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(username)) {
