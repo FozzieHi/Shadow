@@ -32,7 +32,7 @@ client.setInterval(() => {
             const dbGuild = await db.guildRepo.getGuild(guild.id);
 
             if (!guild.me.hasPermission('BAN_MEMBERS')) {
-                await LoggingService.log(dbGuild, guild, Configuration.errorColour, null, `I tried to unban ${member.user.tag} but I do not have the required permissions to do.`);
+                await LoggingService.log(dbGuild, guild, Configuration.errorColour, null, `I tried to unban ${user.tag} but I do not have the required permissions to do.`);
                 continue;
             }
 
