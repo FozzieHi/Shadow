@@ -8,7 +8,7 @@ client.on('presenceUpdate', async (oldPresence, newPresence) => {
     (async () => {
         const dbGuild = await db.guildRepo.getGuild(newPresence.guild.id);
         if (dbGuild.autoMod.antiad) {
-            if (!StringUtils.isNullOrWhiteSpace(newPresence.activity.state)) {
+            if (!StringUtils.isNullOrWhiteSpace(newPresence.activity) && !StringUtils.isNullOrWhiteSpace(newPresence.activity.state)) {
                 AutoModerationService.antiAdvertisingPresence(dbGuild, newPresence.member, newPresence.guild, newPresence.activity.state);
             }
         }
