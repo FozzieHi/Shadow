@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "dependencies": {
-    "@sagi.io/workers-kv": "0.0.6",
+    "@sagi.io/workers-kv": "0.0.8",
     "cloudflare-kv": "^1.1.0",
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "mongodb": "2.2.33",
