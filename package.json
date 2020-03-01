@@ -5,7 +5,7 @@
   "dependencies": {
     "@sagi.io/workers-kv": "0.0.6",
     "cloudflare-kv": "^1.1.0",
-    "discord.js": "git+https://github.com/discordjs/discord.js.git",
+    "discord.js": "^12.0.0",
     "mongodb": "2.2.33",
     "path": "^0.12.7",
     "patron.js": "^3.1.0",
