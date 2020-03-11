@@ -9,6 +9,7 @@ class Guild {
             antiad: false,
             mention: false,
             mentionLimit: 14,
+            filters: []
         };
         this.roles = {
             mod: [],
