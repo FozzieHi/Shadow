@@ -60,7 +60,7 @@ class Filters extends patron.Command {
                 const word = msg.dbGuild.autoMod.filters[i];
                 const channel = msg.guild.channels.get(word.channel);
 
-                description += "**Word**\n" + word.word.toString() + '\n**Channel**\n' + channel.toString() + '\n';
+                description += "**Word**\n" + word.word.toString() + '\n**Channel**\n' + channel.toString() + '\n\n';
             }
             return msg.sender.send(description, { title: 'Filtered Word List' });
         }
