@@ -39,10 +39,10 @@ class Filters extends patron.Command {
         }
 
         if (args.action.toLowerCase() === 'add') {
-            await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Push('autoMod.filters', { word: args.word, channel: args.channel }));
+            await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Push('autoMod.filters', { word: args.word, channel: args.channel.id }));
             return msg.sender.reply('Successfully added ' + args.word + (args.channel !== '' ? ' for ' + args.channel : '') + ' to the filter.');
         } else if (args.action.toLowerCase() === 'remove') {
-            await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Pull('autoMod.filters', { word: args.word, channel: args.channel }));
+            await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Pull('autoMod.filters', { word: args.word, channel: args.channel.id }));
             return msg.sender.reply('Successfully removed ' + args.word + (args.channel !== '' ? ' for ' + args.channel : '') + ' from the filter.');
         } else if (args.action.toLowerCase() === 'list') {
             if (msg.dbGuild.autoMod.filters.length === 0) {

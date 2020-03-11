@@ -75,7 +75,7 @@ client.on('message', (msg) => {
                             return msg.delete();
                         }
                     } else {
-                        if (msg.content.includes(filter.word) && filter.channel.id === msg.channel.id) {
+                        if (msg.content.includes(filter.word) && filter.channel === msg.channel.id) {
                             return msg.delete();
                         }
                     }
