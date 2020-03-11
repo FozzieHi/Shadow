@@ -1,6 +1,6 @@
 const patron = require('patron.js');
 const db = require('../../database');
-const StringUtils = require('../utils/StringUtils.js');
+const StringUtils = require('../../utils/StringUtils.js');
 const Configuration = require('../../utils/Configuration.js');
 
 class Filters extends patron.Command {
@@ -29,7 +29,7 @@ class Filters extends patron.Command {
                     type: 'textchannel',
                     example: '#general',
                     defaultValue: '',
-                    remainder: true,
+                    remainder: true
                 })
             ]
         });
