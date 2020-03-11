@@ -29,7 +29,9 @@ client.on('message', (msg) => {
             msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
             msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
             msg.dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
-            msg.dbGuild.autoMod.filters.forEach(filter => {
+            for (let i = 0; i < msg.dbGuild.autoMod.filters.length; i++) {
+                const filter = msg.dbGuild.autoMod.filters[i];
+
                 if (filter.channel === '') {
                     if (msg.content.includes(filter.word)) {
                         return msg.delete();
@@ -39,7 +41,7 @@ client.on('message', (msg) => {
                         return msg.delete();
                     }
                 }
-            })
+            }
         }
 
         if (msg.content.startsWith(prefix)) {
