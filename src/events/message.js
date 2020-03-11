@@ -71,11 +71,11 @@ client.on('message', (msg) => {
                     const filter = msg.dbGuild.autoMod.filters[i];
 
                     if (filter.channel === '') {
-                        if (msg.content.includes(filter.word)) {
+                        if (msg.content.toLowerCase().includes(filter.word)) {
                             return msg.delete();
                         }
                     } else {
-                        if (msg.content.includes(filter.word) && filter.channel === msg.channel.id) {
+                        if (msg.content.toLowerCase().includes(filter.word) && filter.channel === msg.channel.id) {
                             return msg.delete();
                         }
                     }
