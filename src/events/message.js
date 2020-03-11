@@ -29,16 +29,18 @@ client.on('message', (msg) => {
             msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
             msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
             msg.dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
-            for (let i = 0; i < msg.dbGuild.autoMod.filters.length; i++) {
-                const filter = msg.dbGuild.autoMod.filters[i];
+            if (msg.dbGuild.autoMod.filters !== undefined) {
+                for (let i = 0; i < msg.dbGuild.autoMod.filters.length; i++) {
+                    const filter = msg.dbGuild.autoMod.filters[i];
 
-                if (filter.channel === '') {
-                    if (msg.content.includes(filter.word)) {
-                        return msg.delete();
-                    }
-                } else {
-                    if (msg.content.includes(filter.word) && filter.channel.id === msg.channel.id) {
-                        return msg.delete();
+                    if (filter.channel === '') {
+                        if (msg.content.includes(filter.word)) {
+                            return msg.delete();
+                        }
+                    } else {
+                        if (msg.content.includes(filter.word) && filter.channel.id === msg.channel.id) {
+                            return msg.delete();
+                        }
                     }
                 }
             }
