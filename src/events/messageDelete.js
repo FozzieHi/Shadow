@@ -43,7 +43,7 @@ client.on('messageDelete', (message) => {
                             icon_url: message.author.displayAvatarURL(),
                         };
 
-                        await Logger.log("Options: " + options.image);
+                        await Logger.log("Options: " + options.image.url);
 
                         await Sender.sendFields(logChannel, [
                             'Action', `Message Deletion in ${message.channel}`,
