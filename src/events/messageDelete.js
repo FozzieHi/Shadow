@@ -30,6 +30,7 @@ client.on('messageDelete', (message) => {
                             message.attachments.forEach(attachment => {
                                 Logger.log("File name: " + attachment.name);
                                 if (/\.(jpe?g|png|webp)$/.test(attachment.name)) {
+                                    Logger.log("Match");
                                     options.image = {
                                         url: attachment.url
                                     };
@@ -42,7 +43,7 @@ client.on('messageDelete', (message) => {
                             icon_url: message.author.displayAvatarURL(),
                         };
 
-                        await Logger.log("Options: " + options);
+                        await Logger.log("Options: " + options.image);
 
                         await Sender.sendFields(logChannel, [
                             'Action', `Message Deletion in ${message.channel}`,
