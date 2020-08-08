@@ -26,6 +26,16 @@ client.on('messageDelete', (message) => {
                             timestamp: true
                         };
 
+                        if (message.attachments.size >= 1) {
+                            message.attachments.forEach(attachment => {
+                                if (/\.(jpe?g|png|webp)$/.test(attachment.name)) {
+                                    options.image = {
+                                        url: attachment.url
+                                    };
+                                }
+                            });
+                        }
+
                         options.author = {
                             name: message.author.tag,
                             icon_url: message.author.displayAvatarURL(),
