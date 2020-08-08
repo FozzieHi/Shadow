@@ -28,6 +28,7 @@ client.on('messageDelete', (message) => {
 
                         if (message.attachments.size >= 1) {
                             message.attachments.forEach(attachment => {
+                                Logger.log("File name: " + attachment.name);
                                 if (/\.(jpe?g|png|webp)$/.test(attachment.name)) {
                                     options.image = {
                                         url: attachment.url
@@ -40,6 +41,8 @@ client.on('messageDelete', (message) => {
                             name: message.author.tag,
                             icon_url: message.author.displayAvatarURL(),
                         };
+
+                        await Logger.log("Options: " + options);
 
                         await Sender.sendFields(logChannel, [
                             'Action', `Message Deletion in ${message.channel}`,
