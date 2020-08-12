@@ -26,12 +26,12 @@ client.on('messageDelete', (message) => {
                             timestamp: true
                         };
 
-                        let fields = ['Action', `Message Deletion in ${message.channel}`,
-                            'Content', message.content];
+                        let fields = ['Action', `Message Deletion in ${message.channel}`, 'Content', message.content];
                         for (let i = 0; i < message.attachments.size; i++) {
-                            console.log(message.attachments.array()[i][0]);
+                            console.log(message.attachments.array()[i]);
                             fields.push(`Attachment ${i}`);
-                            fields.push(`[View](${message.attachments.array()[i][0].proxyURL})`)
+                            fields.push(`Test`)
+                            // fields.push(`[View](${message.attachments.array()[i].proxyURL})`)
                         }
 
                         options.author = {
