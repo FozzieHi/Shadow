@@ -23,7 +23,7 @@ client.on('messageDelete', (message) => {
                     if (logChannel !== undefined) {
                         const options = {
                             color: Configuration.orangeColour,
-                            footer: 'User ID: ' + message.author.id + ' Message ID: ' + message.id,
+                            footer: 'User ID: ' + message.author.id + ' - Message ID: ' + message.id,
                             timestamp: true
                         };
 
