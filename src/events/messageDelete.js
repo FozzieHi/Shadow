@@ -26,16 +26,11 @@ client.on('messageDelete', (message) => {
                             timestamp: true
                         };
 
-                        if (message.attachments.size >= 1) {
-                            message.attachments.forEach(attachment => {
-                                Logger.log("File name: " + attachment.name);
-                                if (/\.(jpe?g|png|webp)$/.test(attachment.name)) {
-                                    Logger.log("Match");
-                                    options.image = {
-                                        url: attachment.url
-                                    };
-                                }
-                            });
+                        let fields = ['Action', `Message Deletion in ${message.channel}`,
+                            'Content', message.content];
+                        for (let i = 0; i < fields.length; i++) {
+                            fields.push(`Attachment ${i}`);
+                            fields.push(`[View](${message.attachments[i].proxyURL})`)
                         }
 
                         options.author = {
@@ -43,11 +38,7 @@ client.on('messageDelete', (message) => {
                             icon_url: message.author.displayAvatarURL(),
                         };
 
-                        await Logger.log("Options: " + options.image.url);
-
-                        await Sender.sendFields(logChannel, [
-                            'Action', `Message Deletion in ${message.channel}`,
-                            'Content', message.content], options);
+                        await Sender.sendFields(logChannel, fields, options);
                     }
                 }
             }
