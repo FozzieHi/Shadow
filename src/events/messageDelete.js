@@ -29,9 +29,9 @@ client.on('messageDelete', (message) => {
                         let fields = ['Action', `Message Deletion in ${message.channel}`,
                             'Content', message.content];
                         for (let i = 0; i < fields.length; i++) {
-                            console.log(message.attachments.indexOf(0));
+                            console.log(message.attachments.get(i));
                             fields.push(`Attachment ${i}`);
-                            fields.push(`[View](${message.attachments.indexOf(0).proxyURL})`)
+                            fields.push(`[View](${message.attachments.get(i).proxyURL})`)
                         }
 
                         options.author = {
