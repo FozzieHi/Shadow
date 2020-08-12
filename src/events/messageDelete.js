@@ -1,6 +1,7 @@
 const client = require('../singletons/client.js');
 const Logger = require('../utils/Logger.js');
 const Sender = require('../utils/Sender.js');
+const StringUtils = require('../utils/StringUtils.js');
 const Configuration = require('../utils/Configuration.js');
 const db = require('../database/index.js');
 
@@ -26,14 +27,23 @@ client.on('messageDelete', (message) => {
                             timestamp: true
                         };
 
+                        let fields = ['Action', `Message Deletion in ${message.channel}`];
+                        if (!StringUtils.isNullOrWhiteSpace(message.content)) {
+                            fields.push('Content');
+                            fields.push(message.content);
+                        }
+
+                        for (let i = 0; i < message.attachments.size; i++) {
+                            fields.push(`Attachment ${i + 1}`);
+                            fields.push(`[View](${message.attachments.array()[i].proxyURL})`)
+                        }
+
                         options.author = {
                             name: message.author.tag,
                             icon_url: message.author.displayAvatarURL(),
                         };
 
-                        await Sender.sendFields(logChannel, [
-                            'Action', `Message Deletion in ${message.channel}`,
-                            'Content', message.content], options);
+                        await Sender.sendFields(logChannel, fields, options);
                     }
                 }
             }
