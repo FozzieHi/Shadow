@@ -28,7 +28,7 @@ client.on('messageDelete', (message) => {
 
                         let fields = ['Action', `Message Deletion in ${message.channel}`,
                             'Content', message.content];
-                        for (let i = 0; i < fields.length; i++) {
+                        for (let i = 0; i < message.attachments.size; i++) {
                             console.log(message.attachments[i]);
                             fields.push(`Attachment ${i}`);
                             fields.push(`[View](${message.attachments[i][0].proxyURL})`)
