@@ -34,7 +34,7 @@ client.on('messageDelete', (message) => {
                         }
 
                         for (let i = 0; i < message.attachments.size; i++) {
-                            fields.push(`Attachment ${i}`);
+                            fields.push(`Attachment ${i + 1}`);
                             fields.push(`[View](${message.attachments.array()[i].proxyURL})`)
                         }
 
