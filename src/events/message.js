@@ -9,6 +9,7 @@ const Configuration = require('../utils/Configuration.js');
 const AutoModerationService = require('../services/AutoModerationService.js');
 const discord = require('discord.js');
 const Logger = require('../utils/Logger.js');
+const https = require('https');
 
 client.on('message', (msg) => {
     (async () => {
@@ -29,6 +30,10 @@ client.on('message', (msg) => {
             msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
             msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
             msg.dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
+        }
+
+        for (let i = 0; i < msg.attachments.size; i++) {
+            https.get(msg.attachments[i].proxyURL, (res => { }).on('error', (err) => Logger.handleError(err))); // GET to cache content but ignore response.
         }
 
         if (msg.content.startsWith(prefix)) {

@@ -2,7 +2,6 @@ const client = require('../singletons/client.js');
 const Logger = require('../utils/Logger.js');
 const Sender = require('../utils/Sender.js');
 const StringUtils = require('../utils/StringUtils.js');
-const https = require('https');
 const Configuration = require('../utils/Configuration.js');
 const db = require('../database/index.js');
 
@@ -37,7 +36,6 @@ client.on('messageDelete', (message) => {
                         for (let i = 0; i < message.attachments.size; i++) {
                             fields.push(`Attachment ${i + 1}`);
                             fields.push(`[View](${message.attachments.array()[i].proxyURL})`)
-                            https.get(message.attachments.array()[i].proxyURL);
                         }
 
                         options.author = {
