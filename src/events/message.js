@@ -33,7 +33,7 @@ client.on('message', (msg) => {
         }
 
         for (let i = 0; i < msg.attachments.size; i++) {
-            https.get(msg.attachments[i].proxyURL, (resp => { }).on('error', (err) => Logger.handleError(err))); // GET to cache content but ignore response.
+            https.get(msg.attachments.array()[i].proxyURL, (resp => { }).on('error', (err) => Logger.handleError(err))); // GET to cache content but ignore response.
         }
 
         if (msg.content.startsWith(prefix)) {
