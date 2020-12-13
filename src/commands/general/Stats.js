@@ -15,8 +15,8 @@ class Stats extends patron.Command {
         const uptime = NumericUtils.msToTime(msg.client.uptime);
         return msg.sender.sendFields([
             'Authors', 'Fozzie#0001, Brandon14#0131, Jayden 🎃#8080',
-            'Guilds', msg.client.guilds.size,
-            'Users', msg.client.users.size,
+            'Guilds', msg.client.guilds.cache.size,
+            'Users', msg.client.users.cache.size,
             'Memory', `${(process.memoryUsage().rss / 1048576).toFixed(2)} MB`,
             'Node.js version', `v${process.versions.node}`,
             'Invite', `https://shdw.cc`,
