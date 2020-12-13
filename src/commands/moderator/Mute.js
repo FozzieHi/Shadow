@@ -38,7 +38,7 @@ class Mute extends patron.Command {
     }
 
     async run(msg, args) {
-        const role = msg.guild.roles.get(msg.dbGuild.roles.muted);
+        const role = msg.guild.roles.cache.get(msg.dbGuild.roles.muted);
 
         if (msg.dbGuild.roles.muted === null) {
             return msg.sender.reply('Set a muted role with the `' + msg.dbGuild.prefix + 'settings` command before you can mute users.', { color: Configuration.errorColour });

@@ -47,7 +47,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                         }
                         sender.send('What channel would you like your invite code to invite to?');
                         const inviteChannel = await msg.channel.awaitMessages(filter, {max: 1});
-                        const channel = msg.guild.channels.find(channel => channel.name === inviteChannel.first().content);
+                        const channel = msg.guild.channels.cache.find(channel => channel.name === inviteChannel.first().content);
                         if (channel === undefined || channel === null) {
                             return sender.send('Could not find Text Channel #' + inviteChannel.first().content);
                         }
@@ -78,7 +78,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                             }
                             sender.send('What channel would you like your invite code to invite to?');
                             const inviteChannel = await msg.channel.awaitMessages(filter, {max: 1});
-                            const channel = msg.guild.channels.find(channel => channel.name === inviteChannel.first().content);
+                            const channel = msg.guild.channels.cache.find(channel => channel.name === inviteChannel.first().content);
                             if (channel === undefined || channel === null) {
                                 return sender.send('Could not find Text Channel #' + inviteChannel.first().content);
                             }
@@ -97,7 +97,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 const filter = m => m.author.id === user.id;
                 sender.send('What would you like the Muted role to be?');
                 const mutedRole = await msg.channel.awaitMessages(filter, { max: 1 });
-                const role = await msg.guild.roles.find(role => role.name === mutedRole.first().content);
+                const role = await msg.guild.roles.cache.find(role => role.name === mutedRole.first().content);
                 if (role === undefined || role === null) {
                     return sender.send('Could not find the role ' + mutedRole.first().content);
                 }
@@ -108,7 +108,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 const filter = m => m.author.id === user.id;
                 sender.send('What would you like the new Logging Channel to be?');
                 const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
-                const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                const channel = msg.guild.channels.cache.find(channel => channel.name === newChannel.first().content);
                 if (channel === undefined || channel === null) {
                     return sender.send('Could not find Text Channel #' + newChannel.first().content);
                 }
@@ -118,12 +118,12 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
             if (reaction === '🔄') { // Toggle message logging.
                 const updated = !dbGuild.logMessages;
                 await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'logMessages': (dbGuild.logMessages === undefined ? true : updated) } });
-                let channel = msg.guild.channels.get(dbGuild.channels.messageLog);
+                let channel = msg.guild.channels.cache.get(dbGuild.channels.messageLog);
                 if (updated && dbGuild.channels.messageLog === undefined || channel === undefined) {
                     const filter = m => m.author.id === user.id;
                     await sender.send('What would you like the channel to log message edits/deletes be?');
                     const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
-                    const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                    const channel = msg.guild.channels.cache.find(channel => channel.name === newChannel.first().content);
                     if (channel === undefined || channel === null) {
                         return sender.send('Could not find Text Channel #' + newChannel.first().content);
                     }
@@ -135,7 +135,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 const filter = m => m.author.id === user.id;
                 await sender.send('What would you like the channel to log message edits/deletes to be?');
                 const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
-                const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                const channel = msg.guild.channels.cache.find(channel => channel.name === newChannel.first().content);
                 if (channel === undefined || channel === null) {
                     return sender.send('Could not find Text Channel #' + newChannel.first().content);
                 }
@@ -145,12 +145,12 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
             if (reaction === '👋') { // Toggle join leave logging.
                 const updated = !dbGuild.logJoinLeave;
                 await db.guildRepo.upsertGuild(msg.guild.id, { $set: { 'logJoinLeave': (dbGuild.logJoinLeave === undefined ? true : updated) } });
-                let channel = msg.guild.channels.get(dbGuild.channels.joinLeaveLog);
+                let channel = msg.guild.channels.cache.get(dbGuild.channels.joinLeaveLog);
                 if (updated && dbGuild.channels.joinLeaveLog === undefined || channel === undefined) {
                     const filter = m => m.author.id === user.id;
                     await sender.send('What would you like the channel to log join/leaves to be?');
                     const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
-                    const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                    const channel = msg.guild.channels.cache.find(channel => channel.name === newChannel.first().content);
                     if (channel === undefined || channel === null) {
                         return sender.send('Could not find Text Channel #' + newChannel.first().content);
                     }
@@ -162,7 +162,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
                 const filter = m => m.author.id === user.id;
                 await sender.send('What would you like the channel to log join/leaves to be?');
                 const newChannel = await msg.channel.awaitMessages(filter, { max: 1 });
-                const channel = msg.guild.channels.find(channel => channel.name === newChannel.first().content);
+                const channel = msg.guild.channels.cache.find(channel => channel.name === newChannel.first().content);
                 if (channel === undefined || channel === null) {
                     return sender.send('Could not find Text Channel #' + newChannel.first().content);
                 }
@@ -207,12 +207,12 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
         if (msg.id === dbGuild.pages.autoMod[i].id && user.id === dbGuild.pages.autoMod[i].user) {
             if (reaction === '⌨') {
                 const protection = dbGuild.autoMod.mention;
-                const mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
+                const mutedRole = msg.guild.roles.cache.get(dbGuild.roles.muted);
                 if (mutedRole === undefined || mutedRole === null) {
                     const filter = m => m.author.id === user.id;
                     await sender.send('You first have to set the Muted role, what role would you like it to be?');
                     const mutedRoleNew = await msg.channel.awaitMessages(filter, { max: 1 });
-                    const role = await msg.guild.roles.find(role => role.name === mutedRoleNew.first().content);
+                    const role = await msg.guild.roles.cache.find(role => role.name === mutedRoleNew.first().content);
                     if (role === undefined || role === null) {
                         return sender.send('Could not find the role ' + mutedRoleNew.first().content);
                     }

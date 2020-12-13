@@ -8,7 +8,7 @@ class NoModerator extends patron.ArgumentPrecondition {
         });
     }
     async run(command, msg, argument, args, value) {
-        const member = msg.guild.members.get(value.id);
+        const member = msg.guild.members.cache.get(value.id);
         if (member === undefined || member === null) { // If they are not a member they cannot be a Moderator.
             return patron.PreconditionResult.fromSuccess();
         }

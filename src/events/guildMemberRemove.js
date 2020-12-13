@@ -8,7 +8,7 @@ client.on('guildMemberRemove', async (member) => {
     (async () => {
         const dbGuild = await db.guildRepo.getGuild(member.guild.id);
         if (dbGuild.logJoinLeave) {
-            const logChannel = member.guild.channels.get(dbGuild.channels.joinLeaveLog);
+            const logChannel = member.guild.channels.cache.get(dbGuild.channels.joinLeaveLog);
 
             if (logChannel !== undefined && logChannel !== null) {
                 const options = {
