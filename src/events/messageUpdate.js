@@ -20,7 +20,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 
             if (dbGuild.logMessages) {
                 if (newMessage.type === 'DEFAULT' && oldMessage.content !== newMessage.content) {
-                    const logChannel = newMessage.guild.channels.get(dbGuild.channels.messageLog);
+                    const logChannel = newMessage.guild.channels.cache.get(dbGuild.channels.messageLog);
 
                     if (logChannel !== undefined) {
                         const options = {

@@ -18,7 +18,7 @@ client.on('messageDelete', (message) => {
 
             if (dbGuild.logMessages) {
                 if (message.type === 'DEFAULT') {
-                    const logChannel = message.guild.channels.get(dbGuild.channels.messageLog);
+                    const logChannel = message.guild.channels.cache.get(dbGuild.channels.messageLog);
 
                     if (logChannel !== undefined) {
                         const options = {

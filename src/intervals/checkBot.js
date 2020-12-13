@@ -9,8 +9,8 @@ let lastMem = (process.memoryUsage().rss / 1048576).toFixed(2);
 client.setInterval(() => {
     (async function () {
         if (!startup) {
-            const guild = await client.guilds.get('480320873534849025');
-            const channel = await guild.channels.get('632899724533563411');
+            const guild = await client.guilds.cache.get('480320873534849025');
+            const channel = await guild.channels.cache.get('632899724533563411');
             const currentMem = (process.memoryUsage().rss / 1048576).toFixed(2);
 
             if (currentMem > 500) {
