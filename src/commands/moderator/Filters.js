@@ -58,7 +58,7 @@ class Filters extends patron.Command {
             let description = '';
             for (let i = 0; i < msg.dbGuild.autoMod.filters.length; i++) {
                 const word = msg.dbGuild.autoMod.filters[i];
-                const channel = (word.channel === '' ? 'All' : msg.guild.channels.get(word.channel).toString());
+                const channel = (word.channel === '' ? 'All' : msg.guild.channels.cache.get(word.channel).toString());
 
                 description += "**Word**\n" + word.word.toString() + '\n**Channel**\n' + channel + '\n\n';
             }

@@ -4,7 +4,7 @@ const Configuration = require('../utils/Configuration.js');
 
 class LoggingService {
     log(dbGuild, guild, color, author, message) {
-        const logChannel = guild.channels.get(dbGuild.channels.log);
+        const logChannel = guild.channels.cache.get(dbGuild.channels.log);
         const options = {
             color: color,
             timestamp: true
@@ -22,7 +22,7 @@ class LoggingService {
     }
 
     modLog(dbGuild, guild, action, color, reason = '', moderator, user, extraInfoKey = '', extraInfoValue = '') {
-        const logChannel = guild.channels.get(dbGuild.channels.log);
+        const logChannel = guild.channels.cache.get(dbGuild.channels.log);
         const options = {
             color: color,
             timestamp: true
