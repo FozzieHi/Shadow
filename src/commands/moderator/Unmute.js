@@ -37,7 +37,7 @@ class Unmute extends patron.Command {
             return msg.sender.reply(`${StringUtils.boldify(args.member.user.tag)} is not muted.`, { color: Configuration.errorColour });
         }
 
-        const role = msg.guild.roles.get(msg.dbGuild.roles.muted);
+        const role = msg.guild.roles.cache.get(msg.dbGuild.roles.muted);
 
         if (role === undefined) {
             return msg.sender.reply('The muted role has been deleted. Please set a new one with the `' + msg.dbGuild.prefix + 'settings` command.', { color: Configuration.errorColour });

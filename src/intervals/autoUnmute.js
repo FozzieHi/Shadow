@@ -30,7 +30,7 @@ client.setInterval(() => {
             }
 
             const dbGuild = await db.guildRepo.getGuild(guild.id);
-            const role = guild.roles.get(dbGuild.roles.muted);
+            const role = guild.roles.cache.get(dbGuild.roles.muted);
 
             if (role === undefined) {
                 continue;
