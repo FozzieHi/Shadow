@@ -13,4 +13,4 @@ Copy these contents over, replacing `exampletoken` with a Discord Bot's token yo
   "token": "exampletoken"
 }
 ```
-To run the bot use `node .` or `node src/index.js`
+To run the bot use `node .` or `node src/index.js`.
