@@ -27,7 +27,7 @@ class Configuration {
             'GUILD_MESSAGES',
             'GUILD_MESSAGE_REACTIONS',
             'DIRECT_MESSAGES'
-        ]
+        ];
 
         this.game = {
             activity: ['github.com/FozzieHi/Shadow', 'shdw.cc'],
