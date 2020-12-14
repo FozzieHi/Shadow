@@ -22,7 +22,8 @@ class Database {
             Guild: require('../models/Guild.js'),
             User: require('../models/User.js'),
             Mute: require('../models/Mute.js'),
-            Ban: require('../models/Ban.js')
+            Ban: require('../models/Ban.js'),
+            Advertisement: require('../models/Advertisement.js')
         };
     }
 
