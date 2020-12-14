@@ -6,11 +6,11 @@ const Configuration = require('../utils/Configuration.js');
 class MenuService {
 
     async spawnSettingsMain(msg, dbGuild, userID, type = '') {
-        let logChannel = msg.guild.channels.get(dbGuild.channels.log);
-        let mutedRole = msg.guild.roles.get(dbGuild.roles.muted);
-        let messageLogChannel = msg.guild.roles.get(dbGuild.channels.messageLog);
+        let logChannel = msg.guild.channels.cache.get(dbGuild.channels.log);
+        let mutedRole = msg.guild.roles.cache.get(dbGuild.roles.muted);
+        let messageLogChannel = msg.guild.roles.cache.get(dbGuild.channels.messageLog);
         let messageLogging = dbGuild.logMessages;
-        let joinLeaveLogChannel = msg.guild.roles.get(dbGuild.channels.joinLeaveLog);
+        let joinLeaveLogChannel = msg.guild.roles.cache.get(dbGuild.channels.joinLeaveLog);
         let joinLeaveLogging = dbGuild.logJoinLeave;
         logChannel !== undefined ? logChannel = '- #' + logChannel.name : logChannel = '';
         mutedRole !== undefined ? mutedRole = '- ' + mutedRole.name : mutedRole = '';

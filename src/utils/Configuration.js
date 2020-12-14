@@ -20,11 +20,13 @@ class Configuration {
         this.lightOrangeColour = 0xff720e;
         this.errorColour = 0xff0000;
 
-        this.disabledEvents = [
-            'CHANNEL_PINS_UPDATE',
-            'VOICE_STATE_UPDATE',
-            'TYPING_START',
-            'VOICE_SERVER_UPDATE',
+        this.intents = [
+            'GUILDS',
+            'GUILD_MEMBERS',
+            'GUILD_BANS',
+            'GUILD_MESSAGES',
+            'GUILD_MESSAGE_REACTIONS',
+            'DIRECT_MESSAGES'
         ];
 
         this.game = {
