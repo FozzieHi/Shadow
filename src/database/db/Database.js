@@ -9,9 +9,7 @@ class Database {
         this.queries = {
             Guild: require('../queries/GuildQuery.js'),
             Id: require('../queries/IdQuery.js'),
-            User: require('../queries/UserQuery.js'),
-            Mute: require('../queries/MuteQuery.js'),
-            Ban: require('../queries/BanQuery.js')
+            User: require('../queries/UserQuery.js')
         };
 
         this.updates = {
@@ -23,7 +21,7 @@ class Database {
             Guild: require('../models/Guild.js'),
             User: require('../models/User.js'),
             Mute: require('../models/Mute.js'),
-            Ban: require('../models/Ban.js')
+            Ban: require('../models/Ban.js'),
         };
     }
 
