@@ -5,7 +5,7 @@ const client = require('../../singletons/client.js');
 class InviteLookup extends patron.Command {
     constructor() {
         super({
-            names: ['invitelookup', 'invite'],
+            names: ['invitelookup', 'invite', 'invitefetch', 'fetchinvite', 'lookupinvite'],
             groupName: 'moderator',
             description: 'Lookup an invite code.',
             args: [
@@ -34,7 +34,7 @@ class InviteLookup extends patron.Command {
                 'Members', invite.memberCount,
                 'Online', invite.presenceCount,
                 'Channel', invite.channel.toString(),
-                'Inviter', invite.inviter.tag
+                'Inviter', (invite.inviter === null ? "Vanity Invite" : invite.inviter.tag)
             ], options);
         } else {
             return msg.sender.reply(`Could not resolve invite code ${args.invite}`, { color: Configuration.errorColour })
