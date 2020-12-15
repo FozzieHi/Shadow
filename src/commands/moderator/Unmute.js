@@ -33,7 +33,7 @@ class Unmute extends patron.Command {
     async run(msg, args) {
         if (msg.dbGuild.roles.muted === null) {
             return msg.sender.reply('Set a muted role with the `' + msg.dbGuild.prefix + 'settings` command before you can unmute users.', { color: Configuration.errorColour });
-        } else if (!args.member.roles.has(msg.dbGuild.roles.muted)) {
+        } else if (!args.member.roles.cache.has(msg.dbGuild.roles.muted)) {
             return msg.sender.reply(`${StringUtils.boldify(args.member.user.tag)} is not muted.`, { color: Configuration.errorColour });
         }
 
