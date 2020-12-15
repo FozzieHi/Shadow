@@ -34,7 +34,7 @@ class InviteLookup extends patron.Command {
                 'Members', invite.memberCount,
                 'Online', invite.presenceCount,
                 'Channel', invite.channel.toString(),
-                'Inviter', invite.inviter.tag
+                'Inviter', (invite.inviter === undefined ? "Vanity Invite" : invite.inviter.tag)
             ], options);
         } else {
             return msg.sender.reply(`Could not resolve invite code ${args.invite}`, { color: Configuration.errorColour })
