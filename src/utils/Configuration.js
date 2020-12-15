@@ -21,6 +21,7 @@ class Configuration {
         this.errorColour = 0xff0000;
 
         this.intents = [
+            'GUILDS',
             'GUILD_MEMBERS',
             'GUILD_MESSAGES',
             'GUILD_MESSAGE_REACTIONS'
