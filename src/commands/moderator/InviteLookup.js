@@ -5,7 +5,7 @@ const client = require('../../singletons/client.js');
 class InviteLookup extends patron.Command {
     constructor() {
         super({
-            names: ['invitelookup', 'invite'],
+            names: ['invitelookup', 'invite', 'invitefetch', 'fetchinvite', 'lookupinvite'],
             groupName: 'moderator',
             description: 'Lookup an invite code.',
             args: [
