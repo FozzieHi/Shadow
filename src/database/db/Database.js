@@ -3,7 +3,6 @@ const UserRepository = require('../repositories/UserRepository.js');
 const GuildRepository = require('../repositories/GuildRepository.js');
 const MuteRepository = require('../repositories/MuteRepository.js');
 const BanRepository = require('../repositories/BanRepository.js');
-const AdvertisementRepository = require('../repositories/AdvertisementRepository.js');
 
 class Database {
     constructor() {
@@ -23,7 +22,6 @@ class Database {
             User: require('../models/User.js'),
             Mute: require('../models/Mute.js'),
             Ban: require('../models/Ban.js'),
-            Advertisement: require('../models/Advertisement.js')
         };
     }
 
@@ -34,7 +32,6 @@ class Database {
         this.userRepo = new UserRepository(await db.createCollection('users'));
         this.muteRepo = new MuteRepository(await db.createCollection('mutes'));
         this.banRepo = new BanRepository(await db.createCollection('bans'));
-        this.advertisementRepo = new AdvertisementRepository(await db.createCollection('advertisements'));
 
         await db.collection('guilds').createIndex('guildId', { unique: true });
     }
