@@ -13,4 +13,6 @@ Copy these contents over, replacing `exampletoken` with a Discord Bot's token yo
   "token": "exampletoken"
 }
 ```
+
+You will need to create the following MongoDB collections: `guilds`, `users`, `mutes`, `bans`. This can be done by changing `collection()` to `createCollection()` in `src/database/db/Database.js`.
 To run the bot use `node .` or `node src/index.js`
