@@ -7,7 +7,7 @@ class Ping extends patron.Command {
             names: ['ping'],
             groupName: 'general',
             description: 'Get the bot\'s round trip time.',
-            guildOnly: false
+            usableContexts: [Context.Guild, Context.DM]
         });
     }
 
