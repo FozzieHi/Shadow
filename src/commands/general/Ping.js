@@ -12,7 +12,7 @@ class Ping extends patron.Command {
     }
 
     async run(msg, args) {
-        return msg.sender.reply('Pong!', { footer: `Round trip time: ${client.ws.ping.toFixed(2)}ms` });
+        return msg.sender.reply('Pong!', { footer: `Round trip time: ${Date.now() - msg.createdTimestamp}ms` });
     }
 }
 
