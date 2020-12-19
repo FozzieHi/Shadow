@@ -38,6 +38,12 @@ client.on('messageDelete', (message) => {
                             fields.push(`[View](${message.attachments.array()[i].proxyURL})`)
                         }
 
+                        const auditLog = await message.guild.fetchAuditLogs({ type: "MESSAGE_DELETE" }).then(audit => audit.entries.first());
+                        if (auditLog.extra.channel.id === message.channel.id && auditLog.target.id === message.author.id && auditLog.createdTimestamp > Date.now() - 5000 && auditLog.extra.count >= 1) {
+                            fields.push(`Deleted By`);
+                            fields.push(auditLog.executor);
+                        }
+
                         options.author = {
                             name: message.author.tag,
                             icon_url: message.author.displayAvatarURL(),
