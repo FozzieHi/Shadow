@@ -13,8 +13,7 @@ class LoggingService {
         if (author !== null) {
             options.author = {
                 name: author.tag,
-                icon_url: author.displayAvatarURL(),
-                url: Configuration.invites.bot
+                icon_url: author.displayAvatarURL()
             };
         }
 
@@ -31,8 +30,7 @@ class LoggingService {
         if (moderator !== null) {
             options.author = {
                 name: moderator.tag,
-                icon_url: moderator.displayAvatarURL(),
-                url: Configuration.invites.bot
+                icon_url: moderator.displayAvatarURL()
             };
         }
 
