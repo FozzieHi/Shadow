@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb');
 const UserRepository = require('../repositories/UserRepository.js');
 const GuildRepository = require('../repositories/GuildRepository.js');
 const MuteRepository = require('../repositories/MuteRepository.js');
@@ -26,12 +26,13 @@ class Database {
     }
 
     async connect(connectionURL) {
-        const db = await MongoClient.connect(connectionURL);
+        const connection = await MongoClient.connect(connectionURL);
+        const db = connection.db(connection.s.options.dbName);
 
-        this.guildRepo = new GuildRepository(await db.createCollection('guilds'));
-        this.userRepo = new UserRepository(await db.createCollection('users'));
-        this.muteRepo = new MuteRepository(await db.createCollection('mutes'));
-        this.banRepo = new BanRepository(await db.createCollection('bans'));
+        this.guildRepo = new GuildRepository(await db.collection('guilds'));
+        this.userRepo = new UserRepository(await db.collection('users'));
+        this.muteRepo = new MuteRepository(await db.collection('mutes'));
+        this.banRepo = new BanRepository(await db.collection('bans'));
 
         await db.collection('guilds').createIndex('guildId', { unique: true });
     }
