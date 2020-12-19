@@ -7,7 +7,7 @@ class Stats extends patron.Command {
             names: ['stats', 'statistics', 'stat'],
             groupName: 'general',
             description: 'View Shadow\'s statistics.',
-            usableContexts: [Context.Guild, Context.DM]
+            usableContexts: [patron.Context.Guild, patron.Context.DM]
         });
     }
 

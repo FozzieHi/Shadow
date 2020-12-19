@@ -10,7 +10,7 @@ class Eval extends patron.Command {
             names: ['eval'],
             groupName: 'botowners',
             description: 'Evaluate JavaScript code.',
-            usableContexts: [Context.Guild, Context.DM],
+            usableContexts: [patron.Context.Guild, patron.Context.DM],
             args: [
                 new patron.Argument({
                     name: 'code',
