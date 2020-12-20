@@ -28,8 +28,8 @@ client.on('message', (msg) => {
             msg.dbUser = await db.userRepo.getUser(msg.author.id, msg.guild.id);
             msg.dbGuild = await db.guildRepo.getGuild(msg.guild.id);
             msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
-            msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
-            msg.dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
+            msg.dbGuild.autoMod.antiad ? AutoModerationService.antiAdvertisingMsg(msg) : null;
+            msg.dbGuild.autoMod.mention ? AutoModerationService.antiMentionSpamMsg(msg) : null;
         }
 
         for (let i = 0; i < msg.attachments.size; i++) {
