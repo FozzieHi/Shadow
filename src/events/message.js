@@ -25,11 +25,11 @@ client.on('message', (msg) => {
         msg.sender = sender;
 
         if (inGuild) {
-            msg.dbUser = async () => await db.userRepo.getUser(msg.author.id, msg.guild.id);
-            msg.dbGuild = async () => await db.guildRepo.getGuild(msg.guild.id);
-            this.dbGuild().prefix !== undefined ? prefix = this.dbGuild().prefix : null;
-            this.dbGuild().autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
-            this.dbGuild().autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
+            msg.dbUser = async function() { await db.userRepo.getUser(msg.author.id, msg.guild.id) };
+            msg.dbGuild = async function() { await db.guildRepo.getGuild(msg.guild.id) };
+            msg.dbGuild().prefix !== undefined ? prefix = this.dbGuild().prefix : null;
+            msg.dbGuild().autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
+            msg.dbGuild().autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
         }
 
         for (let i = 0; i < msg.attachments.size; i++) {
