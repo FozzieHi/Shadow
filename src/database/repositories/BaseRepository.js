@@ -12,7 +12,7 @@ class BaseRepository {
     }
 
     count(filter) {
-        return this.collection.count(filter);
+        return this.collection.countDocuments(filter);
     }
 
     findMany(filter = {}) {
