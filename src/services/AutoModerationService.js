@@ -37,7 +37,7 @@ class AutoModerationService {
                 LoggingService.log(dbGuild, guild, Configuration.orangeColour, member.user, 'Had an advertisement in their nickname and their username so I banned them.');
                 return guild.ban(member.user);
             }
-            LoggingService.log(dbGuild, guild, Configuration.orangeColour, member.user, `Had an their nickname, so I changed it.\n\n**Old Nickname:** ${nick}\n**New Nickname:** ${member.user.username}`);
+            LoggingService.log(dbGuild, guild, Configuration.orangeColour, member.user, `Had an advertisement in their nickname, so I changed it.\n\n**Old Nickname:** ${nick}\n**New Nickname:** ${member.user.username}`);
             return member.setNickname(member.user.username);
         }
     }
