@@ -21,7 +21,7 @@ class RemoveModRole extends patron.Command {
     }
 
     async run(msg, args) {
-        if (msg.dbGuild.roles.mod.some((role) => role.id === args.role.id) === false) {
+        if (msg.dbGuild().roles.mod.some((role) => role.id === args.role.id) === false) {
             return msg.sender.reply('Moderation role has not been set.', { color: Configuration.errorColour });
         }
 

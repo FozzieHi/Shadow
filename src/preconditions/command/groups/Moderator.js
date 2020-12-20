@@ -9,7 +9,7 @@ class Moderator extends patron.Precondition {
     }
 
     async run(command, msg) {
-        if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
+        if (ModerationService.getPermLevel(msg.dbGuild(), msg.member) >= 1) {
             return patron.PreconditionResult.fromSuccess();
         }
 

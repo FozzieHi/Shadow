@@ -25,7 +25,7 @@ class MultiBan extends patron.Command {
     async run(msg, args) {
         await args.users.forEach(user => {
             msg.guild.members.ban(user, { reason: `By ${msg.author.tag}` });
-            ModerationService.submitPunishment(msg.guild, msg.dbGuild, 'Ban', 'banned', user, msg.author, '', msg.sender);
+            ModerationService.submitPunishment(msg.guild, msg.dbGuild(), 'Ban', 'banned', user, msg.author, '', msg.sender);
         });
         return msg.sender.reply(`Successfully multi-banned ${StringUtil.boldify(args.users.map(user => user.tag).join(", "))}.`);
     }

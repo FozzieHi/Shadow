@@ -12,7 +12,7 @@ class NoModerator extends patron.ArgumentPrecondition {
         if (member === undefined || member === null) { // If they are not a member they cannot be a Moderator.
             return patron.PreconditionResult.fromSuccess();
         }
-        if (ModerationService.getPermLevel(msg.dbGuild, member) === 0) {
+        if (ModerationService.getPermLevel(msg.dbGuild(), member) === 0) {
             return patron.PreconditionResult.fromSuccess();
         }
 

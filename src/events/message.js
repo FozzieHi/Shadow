@@ -25,11 +25,11 @@ client.on('message', (msg) => {
         msg.sender = sender;
 
         if (inGuild) {
-            msg.dbUser = async () => await db.userRepo.getUser(msg.author.id, msg.guild.id);
-            msg.dbGuild = await db.guildRepo.getGuild(msg.guild.id);
-            msg.dbGuild.prefix !== undefined ? prefix = msg.dbGuild.prefix : null;
-            msg.dbGuild.autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
-            msg.dbGuild.autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
+            msg.dbUser = (async () => await db.userRepo.getUser(msg.author.id, msg.guild.id));
+            msg.dbGuild = (async () => await db.guildRepo.getGuild(msg.guild.id));
+            msg.dbGuild().prefix !== undefined ? prefix = msg.dbGuild().prefix : null;
+            msg.dbGuild().autoMod.antiad ? await AutoModerationService.antiAdvertisingMsg(msg) : null;
+            msg.dbGuild().autoMod.mention ? await AutoModerationService.antiMentionSpamMsg(msg) : null;
         }
 
         for (let i = 0; i < msg.attachments.size; i++) {
@@ -71,9 +71,9 @@ client.on('message', (msg) => {
                 return sender.reply(message, { color: Configuration.errorColour });
             }
         } else {
-            if (msg.dbGuild.autoMod.filters !== undefined && inGuild) {
-                for (let i = 0; i < msg.dbGuild.autoMod.filters.length; i++) {
-                    const filter = msg.dbGuild.autoMod.filters[i];
+            if (msg.dbGuild().autoMod.filters !== undefined && inGuild) {
+                for (let i = 0; i < msg.dbGuild().autoMod.filters.length; i++) {
+                    const filter = msg.dbGuild().autoMod.filters[i];
 
                     if (filter.channel === '') {
                         if (msg.content.toLowerCase().includes(filter.word)) {

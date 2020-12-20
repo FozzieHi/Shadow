@@ -29,7 +29,7 @@ class AddModRole extends patron.Command {
     async run(msg, args) {
         if (args.permissionLevel < 1 || args.permissionLevel > 3) {
             return msg.sender.reply('**Permission levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Server Owner', { color: Configuration.errorColour });
-        } else if (msg.dbGuild.roles.mod.some((role) => role.id === args.role.id)) {
+        } else if (msg.dbGuild().roles.mod.some((role) => role.id === args.role.id)) {
             return msg.sender.reply('The moderation role has already been set.', { color: Configuration.errorColour });
         }
 

@@ -36,7 +36,7 @@ class Clear extends patron.Command {
 
         const reply = await msg.sender.reply('Successfully cleared ' + args.quantity + (args.quantity === 1 ? ' message' : ' messages') + '.');
 
-        await LoggingService.modLog(msg.dbGuild, msg.guild, 'Clear', Configuration.orangeColour, args.reason, msg.author, null, 'Amount', args.quantity);
+        await LoggingService.modLog(msg.dbGuild(), msg.guild, 'Clear', Configuration.orangeColour, args.reason, msg.author, null, 'Amount', args.quantity);
 
         return reply.delete(3000);
     }

@@ -24,7 +24,7 @@ class Help extends patron.Command {
 
     async run(msg, args) {
         if (StringUtils.isNullOrWhiteSpace(args.command)) {
-            const permLevel = ModerationService.getPermLevel(msg.dbGuild, msg.member);
+            const permLevel = ModerationService.getPermLevel(msg.dbGuild(), msg.member);
             const commands = msg.client.registry.commands;
             let generalCommands = [];
             let moderatorCommands = [];
@@ -33,16 +33,16 @@ class Help extends patron.Command {
             for (let i = 0; i < commands.length; i++) {
                 switch (commands[i].group.name) {
                     case 'general':
-                        generalCommands.push({"name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description});
+                        generalCommands.push({"name": msg.dbGuild().prefix + commands[i].names[0], "description": commands[i].description});
                         break;
                     case 'moderator':
-                        moderatorCommands.push({ "name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description });
+                        moderatorCommands.push({ "name": msg.dbGuild().prefix + commands[i].names[0], "description": commands[i].description });
                         break;
                     case 'administrator':
-                        adminCommands.push({ "name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description });
+                        adminCommands.push({ "name": msg.dbGuild().prefix + commands[i].names[0], "description": commands[i].description });
                         break;
                     case 'guildowner':
-                        ownerCommands.push({ "name": msg.dbGuild.prefix + commands[i].names[0], "description": commands[i].description });
+                        ownerCommands.push({ "name": msg.dbGuild().prefix + commands[i].names[0], "description": commands[i].description });
                         break;
                 }
             }
@@ -71,11 +71,11 @@ class Help extends patron.Command {
                 }
             }
 
-            message += '\nYou can find a specific command\'s information by using `' + msg.dbGuild.prefix + 'help [Command]`\n\n**Shadow** is made by **Fozzie#0001**, **Brandon14#0131**, **Jayden 🎃#8080**\n\nFor additional Shadow support we have a [support server!](https://shdw.cc/i/shadow)';
+            message += '\nYou can find a specific command\'s information by using `' + msg.dbGuild().prefix + 'help [Command]`\n\n**Shadow** is made by **Fozzie#0001**, **Brandon14#0131**, **Jayden 🎃#8080**\n\nFor additional Shadow support we have a [support server!](https://shdw.cc/i/shadow)';
             await msg.sender.dm(message);
             return msg.sender.reply('Successfully DMed you all command information.');
         } else {
-            args.command = args.command.startsWith(msg.dbGuild.prefix) ? args.command.slice(msg.dbGuild.prefix.length) : args.command;
+            args.command = args.command.startsWith(msg.dbGuild().prefix) ? args.command.slice(msg.dbGuild().prefix.length) : args.command;
 
             const lowerInput = args.command.toLowerCase();
 
@@ -85,7 +85,7 @@ class Help extends patron.Command {
                 return msg.sender.reply('This command does not exist.', { color: Configuration.errorColour });
             }
 
-            return msg.sender.send('**Description:** ' + command.description +  '\n**Usage:** `' + msg.dbGuild.prefix + command.getUsage() + '`\n**Example:** `' + msg.dbGuild.prefix + command.getExample() + '`', { title: StringUtils.upperFirstChar(command.names[0]) });
+            return msg.sender.send('**Description:** ' + command.description +  '\n**Usage:** `' + msg.dbGuild().prefix + command.getUsage() + '`\n**Example:** `' + msg.dbGuild().prefix + command.getExample() + '`', { title: StringUtils.upperFirstChar(command.names[0]) });
         }
     }
 }

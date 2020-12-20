@@ -51,13 +51,13 @@ class Filters extends patron.Command {
             await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Pull('autoMod.filters', { word: args.word, channel: args.channel.id }));
             return msg.sender.reply('Successfully removed ' + args.word + (args.channel !== '' ? ' for ' + args.channel.toString() : '') + ' from the filter.');
         } else if (args.action.toLowerCase() === 'list') {
-            if (msg.dbGuild.autoMod.filters.length === 0) {
+            if (msg.dbGuild().autoMod.filters.length === 0) {
                 return msg.sender.reply('No filtered words found.', { color: Configuration.errorColour });
             }
 
             let description = '';
-            for (let i = 0; i < msg.dbGuild.autoMod.filters.length; i++) {
-                const word = msg.dbGuild.autoMod.filters[i];
+            for (let i = 0; i < msg.dbGuild().autoMod.filters.length; i++) {
+                const word = msg.dbGuild().autoMod.filters[i];
                 const channel = (word.channel === '' ? 'All' : msg.guild.channels.cache.get(word.channel).toString());
 
                 description += "**Word**\n" + word.word.toString() + '\n**Channel**\n' + channel + '\n\n';

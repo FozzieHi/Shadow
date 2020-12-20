@@ -12,9 +12,9 @@ class ModRoles extends patron.Command {
     }
 
     async run(msg, args) {
-        const modRoleList = msg.dbGuild.roles.mod.sort((a, b) => a.permissionLevel - b.permissionLevel);
+        const modRoleList = msg.dbGuild().roles.mod.sort((a, b) => a.permissionLevel - b.permissionLevel);
 
-        if (msg.dbGuild.roles.mod.length === 0) {
+        if (msg.dbGuild().roles.mod.length === 0) {
             return msg.sender.reply('No moderation role data found.', { color: Configuration.errorColour });
         }
 
@@ -25,7 +25,7 @@ class ModRoles extends patron.Command {
             description += rank.toString() + ': ' + modRoleList[i].permissionLevel + '\n';
         }
 
-        return msg.sender.send(description + '\n**Permission Levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Owner\n\nYour permission level: ' + ModerationService.getPermLevelStr(msg.dbGuild, msg.member), { title: 'Moderation Roles' });
+        return msg.sender.send(description + '\n**Permission Levels:**\n**1)** Moderator\n**2)** Administrator\n**3)** Owner\n\nYour permission level: ' + ModerationService.getPermLevelStr(msg.dbGuild(), msg.member), { title: 'Moderation Roles' });
     }
 }
 
