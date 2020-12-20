@@ -26,7 +26,7 @@ class Database {
     }
 
     async connect(connectionURL) {
-        const connection = await MongoClient.connect(connectionURL);
+        const connection = await MongoClient.connect(connectionURL, { useUnifiedTopology: true });
         const db = connection.db(connection.s.options.dbName);
 
         this.guildRepo = new GuildRepository(await db.collection('guilds'));
