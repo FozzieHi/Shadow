@@ -13,8 +13,8 @@ class AutoModerationService {
             }
             msg.delete();
             LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Posted an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
-            if (msg.dbUser.automod.advertisementStart + 600000 > Date.now()) {
-                if (msg.dbUser.automod.advertisementCount >= 3) {
+            if (msg.dbUser().automod.advertisementStart + 600000 > Date.now()) {
+                if (msg.dbUser().automod.advertisementCount >= 3) {
                     const role = msg.guild.roles.cache.get(msg.dbGuild.roles.muted);
                     LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} posted more than 3 advertisements within 10 minutes so I muted them.`);
                     return msg.member.roles.add(role);
