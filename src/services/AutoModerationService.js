@@ -2,12 +2,21 @@ const Configuration = require('../utils/Configuration.js');
 const LoggingService = require('../services/LoggingService.js');
 const ModerationService = require('../services/ModerationService.js');
 const db = require('../database/index.js');
+const client = require('../../singletons/client.js');
 
 class AutoModerationService {
 
     async antiAdvertisingMsg(msg) {
-        const content = msg.content.split(' ').join('').toLowerCase();
-        if (Configuration.regexes.antiad.test(content)) {
+        const array = msg.content.split(' ');
+        const content = array.join('').toLowerCase();
+        let matches = [];
+        array.forEach(word => {
+            if (Configuration.regexes.invite.test(word)) {
+                matches.push(word);
+            }
+        });
+
+        if (Configuration.regexes.antiad.test(content) || await this.checkMatches(matches)) {
             if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
                 return LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Bypassed the Anti Advertising module by posting an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
             }
@@ -64,7 +73,7 @@ class AutoModerationService {
         }
     }
 
-   async antiMentionSpamMsg(msg) {
+    async antiMentionSpamMsg(msg) {
         const mentions = msg.mentions.users.size;
 
         if (mentions >= msg.dbGuild.autoMod.mentionLimit) {
@@ -74,6 +83,15 @@ class AutoModerationService {
             }
             LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} mentioned ${mentions} different users in a single message so I muted them. [Jump to message](${msg.url})`);
             return msg.member.roles.add(role);
+        }
+    }
+
+    async checkMatches(matches) {
+        if (matches > 0) {
+            for (let i = 0; i < matches.size; i++) {
+                const result = await client.fetchInvite(`https://discord.gg/${matches[i]}`);
+                return ((result.maxAge === 0 || result.expiresTimestamp > Date.now()) && (result.maxUses === 0 || result.uses < result.maxUses));
+            }
         }
     }
 }
