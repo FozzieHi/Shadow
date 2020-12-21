@@ -7,8 +7,7 @@ const client = require('../../singletons/client.js');
 class AutoModerationService {
 
     async antiAdvertisingMsg(msg) {
-        const array = msg.content.split(' ');
-        const content = array.join('').toLowerCase();
+        const content = msg.content.split(' ').join('').toLowerCase();
         // let matches = [];
         // array.forEach(word => {
         //     if (Configuration.regexes.invite.test(word)) {
