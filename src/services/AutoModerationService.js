@@ -2,19 +2,11 @@ const Configuration = require('../utils/Configuration.js');
 const LoggingService = require('../services/LoggingService.js');
 const ModerationService = require('../services/ModerationService.js');
 const db = require('../database/index.js');
-const client = require('../../singletons/client.js');
 
 class AutoModerationService {
 
-    async antiAdvertisingMsg(msg) {
+    antiAdvertisingMsg(msg) {
         const content = msg.content.split(' ').join('').toLowerCase();
-        // let matches = [];
-        // array.forEach(word => {
-        //     if (Configuration.regexes.invite.test(word)) {
-        //         matches.push(word);
-        //     }
-        // });
-
         if (Configuration.regexes.antiad.test(content)) {
             if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
                 return LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Bypassed the Anti Advertising module by posting an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
@@ -35,7 +27,7 @@ class AutoModerationService {
         }
     }
 
-    async antiAdvertisingNick(dbGuild, member, guild, nick) {
+    antiAdvertisingNick(dbGuild, member, guild, nick) {
         nick = nick.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(nick)) {
             if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
@@ -50,7 +42,7 @@ class AutoModerationService {
         }
     }
 
-    async antiAdvertisingPresence(dbGuild, member, guild, presence) {
+    antiAdvertisingPresence(dbGuild, member, guild, presence) {
         presence = presence.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(presence)) {
             if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
@@ -61,7 +53,7 @@ class AutoModerationService {
         }
     }
 
-    async antiAdvertisingUsername(dbGuild, member, guild, username) {
+    antiAdvertisingUsername(dbGuild, member, guild, username) {
         username = username.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(username)) {
             if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
@@ -72,7 +64,7 @@ class AutoModerationService {
         }
     }
 
-    async antiMentionSpamMsg(msg) {
+    antiMentionSpamMsg(msg) {
         const mentions = msg.mentions.users.size;
 
         if (mentions >= msg.dbGuild.autoMod.mentionLimit) {
@@ -85,7 +77,7 @@ class AutoModerationService {
         }
     }
 
-    // async checkMatches(matches) {
+    // checkMatches(matches) {
     //     if (matches > 0) {
     //         for (let i = 0; i < matches.size; i++) {
     //             const result = await client.fetchInvite(`https://discord.gg/${matches[i]}`);
