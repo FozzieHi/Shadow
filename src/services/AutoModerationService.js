@@ -9,14 +9,14 @@ class AutoModerationService {
     async antiAdvertisingMsg(msg) {
         const array = msg.content.split(' ');
         const content = array.join('').toLowerCase();
-        let matches = [];
-        array.forEach(word => {
-            if (Configuration.regexes.invite.test(word)) {
-                matches.push(word);
-            }
-        });
+        // let matches = [];
+        // array.forEach(word => {
+        //     if (Configuration.regexes.invite.test(word)) {
+        //         matches.push(word);
+        //     }
+        // });
 
-        if (Configuration.regexes.antiad.test(content) || await this.checkMatches(matches)) {
+        if (Configuration.regexes.antiad.test(content)) {
             if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
                 return LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Bypassed the Anti Advertising module by posting an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
             }
@@ -86,14 +86,14 @@ class AutoModerationService {
         }
     }
 
-    async checkMatches(matches) {
-        if (matches > 0) {
-            for (let i = 0; i < matches.size; i++) {
-                const result = await client.fetchInvite(`https://discord.gg/${matches[i]}`);
-                return ((result.maxAge === 0 || result.expiresTimestamp > Date.now()) && (result.maxUses === 0 || result.uses < result.maxUses));
-            }
-        }
-    }
+    // async checkMatches(matches) {
+    //     if (matches > 0) {
+    //         for (let i = 0; i < matches.size; i++) {
+    //             const result = await client.fetchInvite(`https://discord.gg/${matches[i]}`);
+    //             return ((result.maxAge === 0 || result.expiresTimestamp > Date.now()) && (result.maxUses === 0 || result.uses < result.maxUses));
+    //         }
+    //     }
+    // }
 }
 
 module.exports = new AutoModerationService();
