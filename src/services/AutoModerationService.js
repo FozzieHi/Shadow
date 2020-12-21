@@ -5,7 +5,7 @@ const db = require('../database/index.js');
 
 class AutoModerationService {
 
-    antiAdvertisingMsg(msg) {
+    async antiAdvertisingMsg(msg) {
         const content = msg.content.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(content)) {
             if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
@@ -27,7 +27,7 @@ class AutoModerationService {
         }
     }
 
-    antiAdvertisingNick(dbGuild, member, guild, nick) {
+    async antiAdvertisingNick(dbGuild, member, guild, nick) {
         nick = nick.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(nick)) {
             if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
@@ -42,7 +42,7 @@ class AutoModerationService {
         }
     }
 
-    antiAdvertisingPresence(dbGuild, member, guild, presence) {
+    async antiAdvertisingPresence(dbGuild, member, guild, presence) {
         presence = presence.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(presence)) {
             if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
@@ -53,7 +53,7 @@ class AutoModerationService {
         }
     }
 
-    antiAdvertisingUsername(dbGuild, member, guild, username) {
+    async antiAdvertisingUsername(dbGuild, member, guild, username) {
         username = username.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(username)) {
             if (ModerationService.getPermLevel(dbGuild, member) >= 1) {
