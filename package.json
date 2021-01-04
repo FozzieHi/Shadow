@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "dependencies": {
-    "bufferutil": "^4.0.2",
+    "bufferutil": "^4.0.3",
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "erlpack": "github:discord/erlpack",
     "mongodb": "^3.6.3",
