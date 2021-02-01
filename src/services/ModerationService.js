@@ -21,7 +21,7 @@ class ModerationService {
                 permLevel = modRole.permissionLevel;
             }
         }
-        return member.hasPermission('ADMINISTRATOR') && permLevel < 2 ? 2 : permLevel;
+        return member.permissions.has('ADMINISTRATOR') && permLevel < 2 ? 2 : permLevel;
     }
 
     getPermLevelStr(dbGuild, member) {
