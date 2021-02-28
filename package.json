@@ -5,7 +5,6 @@
   "dependencies": {
     "bufferutil": "^4.0.3",
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
-    "erlpack": "github:discord/erlpack",
     "mongodb": "^3.6.4",
     "path": "^0.12.7",
     "patron.js": "^3.1.0",
