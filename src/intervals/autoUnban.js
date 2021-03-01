@@ -17,7 +17,7 @@ client.setInterval(() => {
 
             await db.banRepo.deleteById(bans[i]._id);
 
-            const guild = client.guilds.get(bans[i].guildId);
+            const guild = client.guilds.cache.get(bans[i].guildId);
 
             if (guild === undefined) {
                 continue;

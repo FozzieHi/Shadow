@@ -19,10 +19,10 @@ class AutoModerationService {
                     LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} posted 3 or more advertisements within 10 minutes so I muted them.`);
                     return msg.member.roles.add(role);
                 }
-                db.userRepo.upsertUser(args.user.id, msg.guild.id, { $inc: { 'automod.advertisementCount': 1 } });
+                db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $inc: { 'automod.advertisementCount': 1 } });
             } else {
-                db.userRepo.upsertUser(args.user.id, msg.guild.id, { $set: { 'automod.advertisementStart': Date.now() }});
-                db.userRepo.upsertUser(args.user.id, msg.guild.id, { $set: { 'automod.advertisementCount': 1 } });
+                db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $set: { 'automod.advertisementStart': Date.now() }});
+                db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $set: { 'automod.advertisementCount': 1 } });
             }
         }
     }

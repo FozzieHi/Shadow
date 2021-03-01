@@ -17,7 +17,7 @@ client.setInterval(() => {
 
             await db.muteRepo.deleteById(mutes[i]._id);
 
-            const guild = client.guilds.get(mutes[i].guildId);
+            const guild = client.guilds.cache.get(mutes[i].guildId);
 
             if (guild === undefined) {
                 continue;
