@@ -5,7 +5,7 @@
   "dependencies": {
     "bufferutil": "^4.0.3",
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
-    "mongodb": "^3.6.4",
+    "mongodb": "^3.6.8",
     "path": "^0.12.7",
     "patron.js": "^3.1.0",
     "request": "^2.88.2",
