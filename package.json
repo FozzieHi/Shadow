@@ -7,7 +7,7 @@
     "discord.js": "git+https://github.com/discordjs/discord.js.git",
     "mongodb": "^3.6.4",
     "path": "^0.12.7",
-    "patron.js": "^3.1.0",
+    "patron.js": "github:FozzieHi/patron",
     "request": "^2.88.2",
     "snyk": "^1.474.0",
     "utf-8-validate": "^5.0.4"
