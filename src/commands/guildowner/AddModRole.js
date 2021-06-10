@@ -35,7 +35,7 @@ class AddModRole extends patron.Command {
 
         await db.guildRepo.upsertGuild(msg.guild.id, new db.updates.Push('roles.mod', { id: args.role.id, permissionLevel: args.permissionLevel }));
 
-        return msg.sender.reply('Successfully added the moderation role ' + args.role + ' with a level of ' + args.permissionLevel + '.');
+        return msg.sender.reply('Successfully added the moderation role ' + args.role.toString() + ' with a level of ' + args.permissionLevel + '.');
     }
 }
 
