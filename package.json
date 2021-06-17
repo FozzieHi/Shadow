@@ -9,7 +9,7 @@
     "path": "^0.12.7",
     "patron.js": "github:FozzieHi/patron",
     "request": "^2.88.2",
-    "snyk": "^1.474.0",
+    "snyk": "^1.637.0",
     "utf-8-validate": "^5.0.4"
   }
 }
