@@ -48,7 +48,7 @@ class Configuration {
         };
 
         this.regexes = {
-            antiad: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite|discord\.com\/invite|dicksword\.com\/invite|discordservers\.com\/server|top\.gg\/server|shdw\.cc\/i)\/.+[a-zA-Z]/,
+            antiad: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discord\.com\/invite|discordapp\.com\/invite|dicksword\.com\/invite|discordservers\.com\/server|top\.gg\/server|shdw\.cc\/i)\/.+[a-zA-Z]/,
             invite: /^[a-zA-Z]{8}$/
         };
 
