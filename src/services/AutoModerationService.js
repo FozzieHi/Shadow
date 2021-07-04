@@ -5,24 +5,27 @@ const db = require('../database/index.js');
 
 class AutoModerationService {
 
-    antiAdvertisingMsg(msg) {
+    async antiAdvertisingMsg(msg) {
         const content = msg.content.split(' ').join('').toLowerCase();
         if (Configuration.regexes.antiad.test(content)) {
             if (ModerationService.getPermLevel(msg.dbGuild, msg.member) >= 1) {
                 return LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Bypassed the Anti Advertising module by posting an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
             }
             msg.delete();
-            LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Posted an advertisement in ${msg.channel} [Jump to message](${msg.url})\n\n**Message:** ${msg.content}`);
+            const messages = await msg.channel.messages.fetch({ limit: 2 });
+            const aboveMessage = messages.last().url;
+
+            LoggingService.log(msg.dbGuild, msg.guild, Configuration.orangeColour, msg.author, `Posted an advertisement in ${msg.channel} [Jump to message above](${aboveMessage})\n\n**Message:** ${msg.content}`);
             if (msg.dbUser.automod.advertisementStart + 600000 > Date.now()) {
                 if (msg.dbUser.automod.advertisementCount >= 3) {
                     const role = msg.guild.roles.cache.get(msg.dbGuild.roles.muted);
                     LoggingService.log(msg.dbGuild, msg.guild, Configuration.errorColour, msg.author, `${msg.author.tag} posted 3 or more advertisements within 10 minutes so I muted them.`);
                     return msg.member.roles.add(role);
                 }
-                db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $inc: { 'automod.advertisementCount': 1 } });
+                await db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $inc: { 'automod.advertisementCount': 1 } });
             } else {
-                db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $set: { 'automod.advertisementStart': Date.now() }});
-                db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $set: { 'automod.advertisementCount': 1 } });
+                await db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $set: { 'automod.advertisementStart': Date.now() }});
+                await db.userRepo.upsertUser(msg.author.id, msg.guild.id, { $set: { 'automod.advertisementCount': 1 } });
             }
         }
     }
