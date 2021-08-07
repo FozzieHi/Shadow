@@ -11,7 +11,7 @@ class UserRepository extends BaseRepository {
         const query = new UserQuery(userId, guildId);
         const fetchedUser = await this.findOne(query, guildId);
 
-        return fetchedUser != null ? fetchedUser : this.findOneAndReplace(query, new User(userId, guildId));
+        return fetchedUser != null ? fetchedUser : await this.findOneAndReplace(query, new User(userId, guildId));
     }
 
     updateUser(userId, guildId, update) {

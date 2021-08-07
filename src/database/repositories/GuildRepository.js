@@ -11,7 +11,7 @@ class GuildRepository extends BaseRepository {
         const query = new GuildQuery(guildId);
         const fetchedGuild = await this.findOne(query);
 
-        return fetchedGuild != null ? fetchedGuild : this.findOneAndReplace(query, new Guild(guildId));
+        return fetchedGuild != null ? fetchedGuild : await this.findOneAndReplace(query, new Guild(guildId));
     }
 
     updateGuild(guildId, update) {
