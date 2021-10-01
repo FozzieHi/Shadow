@@ -11,7 +11,7 @@ const discord = require('discord.js');
 const Logger = require('../utils/Logger.js');
 const https = require('https');
 
-client.on('message', (msg) => {
+client.on('messageCreate', (msg) => {
     (async () => {
         if (msg.author.bot) {
             return;

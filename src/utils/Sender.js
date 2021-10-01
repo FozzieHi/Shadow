@@ -38,7 +38,7 @@ class Sender {
             throw new Error('The description must be an object or a string.');
         }
 
-        return channel.send({ embed: new Embed(options) });
+        return channel.send({ embeds: [new Embed(options)] });
     }
 
     static sendFields(channel, fieldsAndValues, options = {}) {

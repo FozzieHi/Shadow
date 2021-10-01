@@ -28,6 +28,21 @@ class Configuration {
             'DIRECT_MESSAGES'
         ];
 
+        this.partials = [
+            'CHANNEL'
+        ];
+
+        this.cacheOptions = Options.cacheWithLimits({
+            MessageManager: {
+                maxSize: 1500,
+                sweepFilter: LimitedCollection.filterByLifetime({
+                    lifetime: 604800,
+                    getComparisonTimestamp: e => e.editedTimestamp ?? e.createdTimestamp
+                }),
+                sweepInterval: 200
+            }
+        });
+
         this.game = {
             activity: ['github.com/FozzieHi/Shadow', 'shdw.cc'],
             type: 'WATCHING'

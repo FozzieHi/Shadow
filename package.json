@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "dependencies": {
     "bufferutil": "^4.0.3",
-    "discord.js": "git+https://github.com/discordjs/discord.js.git",
+    "discord.js": "^13.0.0",
     "mongodb": "^3.6.4",
     "path": "^0.12.7",
     "patron.js": "github:FozzieHi/patron",
