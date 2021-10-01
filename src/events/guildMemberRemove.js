@@ -13,7 +13,7 @@ client.on('guildMemberRemove', async (member) => {
 
             if (logChannel !== undefined && logChannel !== null) {
                 const buttons = [[
-                    new Discord.MessageButton().setCustomId('userid-' + user.id).setLabel("User ID").setStyle('SECONDARY')
+                    new Discord.MessageButton().setCustomId('userid-' + member.id).setLabel("User ID").setStyle('SECONDARY')
                 ]];
                 const options = {
                     color: Configuration.lightOrangeColour,
