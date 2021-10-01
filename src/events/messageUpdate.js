@@ -25,7 +25,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 
                     if (logChannel !== undefined) {
                         const buttons = [[
-                            new Discord.MessageButton().setCustomId('userid-' + newMessage.user.id).setLabel("User ID").setStyle('SECONDARY')
+                            new Discord.MessageButton().setCustomId('userid-' + newMessage.author.id).setLabel("User ID").setStyle('SECONDARY')
                         ]];
                         const options = {
                             color: Configuration.lightOrangeColour,

@@ -23,7 +23,7 @@ client.on('messageDelete', (message) => {
 
                     if (logChannel !== undefined) {
                         const buttons = [[
-                            new Discord.MessageButton().setCustomId('userid-' + message.user.id).setLabel("User ID").setStyle('SECONDARY')
+                            new Discord.MessageButton().setCustomId('userid-' + message.author.id).setLabel("User ID").setStyle('SECONDARY')
                         ]];
                         const options = {
                             color: Configuration.orangeColour,
