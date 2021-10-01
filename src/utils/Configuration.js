@@ -1,3 +1,5 @@
+const { Options, LimitedCollection } = require("discord.js");
+
 class Configuration {
     constructor() {
         this.defaultColours = [ // Lovely hex
