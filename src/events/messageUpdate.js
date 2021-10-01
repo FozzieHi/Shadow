@@ -4,6 +4,7 @@ const Logger = require('../utils/Logger.js');
 const Sender = require('../utils/Sender.js');
 const Configuration = require('../utils/Configuration.js');
 const db = require('../database/index.js');
+const Discord = require('discord.js');
 
 client.on('messageUpdate', (oldMessage, newMessage) => {
     (async () => {
@@ -23,6 +24,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
                     const logChannel = newMessage.guild.channels.cache.get(dbGuild.channels.messageLog);
 
                     if (logChannel !== undefined) {
+                        const buttons = [[
+                            new Discord.MessageButton().setCustomId('userid-' + user.id).setLabel("User ID").setStyle('SECONDARY')
+                        ]];
                         const options = {
                             color: Configuration.lightOrangeColour,
                             footer: 'User ID: ' + newMessage.author.id + ' - Message ID: ' + newMessage.id,
@@ -37,7 +41,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
                         await Sender.sendFields(logChannel, [
                             'Action', `Message Edit in ${newMessage.channel} [Jump to message](${newMessage.url})`,
                             'Before', oldMessage.content,
-                            'After', newMessage.content], options);
+                            'After', newMessage.content], options, { components: buttons.map(b => ({ type: 1, components: b }))});
                     }
                 }
             }

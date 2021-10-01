@@ -4,6 +4,7 @@ const Sender = require('../utils/Sender.js');
 const StringUtils = require('../utils/StringUtils.js');
 const Configuration = require('../utils/Configuration.js');
 const db = require('../database/index.js');
+const Discord = require('discord.js');
 
 client.on('messageDelete', (message) => {
     (async () => {
@@ -21,6 +22,9 @@ client.on('messageDelete', (message) => {
                     const logChannel = message.guild.channels.cache.get(dbGuild.channels.messageLog);
 
                     if (logChannel !== undefined) {
+                        const buttons = [[
+                            new Discord.MessageButton().setCustomId('userid-' + user.id).setLabel("User ID").setStyle('SECONDARY')
+                        ]];
                         const options = {
                             color: Configuration.orangeColour,
                             footer: 'User ID: ' + message.author.id + ' - Message ID: ' + message.id,
@@ -49,7 +53,7 @@ client.on('messageDelete', (message) => {
                             icon_url: message.author.displayAvatarURL(),
                         };
 
-                        await Sender.sendFields(logChannel, fields, options);
+                        await Sender.sendFields(logChannel, fields, options, { components: buttons.map(b => ({ type: 1, components: b }))});
                     }
                 }
             }

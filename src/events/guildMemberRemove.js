@@ -3,6 +3,7 @@ const db = require('../database/index.js');
 const Logger = require('../utils/Logger.js');
 const Configuration = require('../utils/Configuration.js');
 const Sender = require('../utils/Sender.js');
+const Discord = require('discord.js');
 
 client.on('guildMemberRemove', async (member) => {
     (async () => {
@@ -11,6 +12,9 @@ client.on('guildMemberRemove', async (member) => {
             const logChannel = member.guild.channels.cache.get(dbGuild.channels.joinLeaveLog);
 
             if (logChannel !== undefined && logChannel !== null) {
+                const buttons = [[
+                    new Discord.MessageButton().setCustomId('userid-' + user.id).setLabel("User ID").setStyle('SECONDARY')
+                ]];
                 const options = {
                     color: Configuration.lightOrangeColour,
                     footer: 'User ID: ' + member.id,
@@ -24,7 +28,7 @@ client.on('guildMemberRemove', async (member) => {
 
                 await Sender.sendFields(logChannel, [
                     'Action', `Left the server`,
-                    'Members now', member.guild.memberCount], options);
+                    'Members now', member.guild.memberCount], options, { components: buttons.map(b => ({ type: 1, components: b }))});
             }
         }
     })().catch((err) => Logger.handleError(err));

@@ -1,4 +1,4 @@
-const Embed = require('./Embed.js');
+const Embed = require('../structures/Embed.js');
 const StringUtils = require('./StringUtils.js');
 const NumericUtils = require('./NumericUtils.js');
 
@@ -7,54 +7,56 @@ class Sender {
         this.msg = msg;
     }
 
-    dm(description, options, user = this.msg.author) {
-        return this.constructor.send(user, description, options);
+    dm(user, description, embedOptions = {}, messageOptions = {}) {
+        return this.constructor.send(user, description, embedOptions, messageOptions);
     }
 
-    reply(description, options) {
-        return this.constructor.reply(this.msg, description, options);
+    reply(description, embedOptions = {}, messageOptions = {}) {
+        return this.constructor.reply(this.msg, description, embedOptions, messageOptions);
     }
 
-    send(description, options) {
-        return this.constructor.send(this.msg.channel, description, options);
+    send(description, embedOptions = {}, messageOptions = {}) {
+        return this.constructor.send(this.msg.channel, description, embedOptions, messageOptions);
     }
 
-    sendFields(fieldsAndValues, options) {
-        return this.constructor.sendFields(this.msg.channel, fieldsAndValues, options);
+    sendFields(fieldsAndValues, embedOptions = {}, messageOptions = {}) {
+        return this.constructor.sendFields(this.msg.channel, fieldsAndValues, embedOptions, messageOptions);
     }
 
-    static reply(msg, description, options) {
-        return this.send(msg.channel, StringUtils.boldify(msg.author.tag) + ', ' + description, options);
+    static reply(msg, description, embedOptions = {}, messageOptions = {}) {
+        return this.send(msg.channel, StringUtils.boldify(msg.author.tag) + ', ' + description, embedOptions, messageOptions);
     }
 
-    static send(channel, description, options = {}) {
+    static send(channel, description, embedOptions = {}, messageOptions = {}) {
         const descriptionType = typeof description;
 
         if (descriptionType === 'object') {
-            options = description;
+            embedOptions = description;
         } else if (descriptionType === 'string') {
-            options.description = description;
+            embedOptions.description = description;
         } else {
             throw new Error('The description must be an object or a string.');
         }
 
-        return channel.send({ embeds: [new Embed(options)] });
+        messageOptions.embeds = [new Embed(embedOptions)];
+
+        return channel.send(messageOptions);
     }
 
-    static sendFields(channel, fieldsAndValues, options = {}) {
+    static sendFields(channel, fieldsAndValues, embedOptions = {}, messageOptions = {}) {
         if (!NumericUtils.isEven(fieldsAndValues.length)) {
             throw new Error('The number of fields and values must be even.');
         }
 
-        options.fields = [];
+        embedOptions.fields = [];
 
         for (let i = 0; i < fieldsAndValues.length - 1; i++) {
             if (NumericUtils.isEven(i)) {
-                options.fields.push({ name: fieldsAndValues[i], value: fieldsAndValues[i + 1] });
+                embedOptions.fields.push({ name: fieldsAndValues[i], value: fieldsAndValues[i + 1] });
             }
         }
 
-        return this.send(channel, options);
+        return this.send(channel, '', embedOptions, messageOptions);
     }
 }
 
