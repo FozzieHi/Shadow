@@ -7,4 +7,4 @@ client.on('interactionCreate', async (interaction) => {
             return interaction.reply({content: userId, ephemeral: true});
         }
     }
-}
+});
