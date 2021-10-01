@@ -4,7 +4,7 @@ const LoggingService = require('../services/LoggingService.js');
 const client = require('../singletons/client.js');
 const Logger = require('../utils/Logger.js');
 
-client.setInterval(() => {
+setInterval(() => {
     (async function () {
         await Logger.log('Interval: Auto Unmute', 'INFO');
 

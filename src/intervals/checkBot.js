@@ -6,7 +6,7 @@ const Sender = require('../utils/Sender.js');
 let startup = true;
 let lastMem = (process.memoryUsage().rss / 1048576).toFixed(2);
 
-client.setInterval(() => {
+setInterval(() => {
     (async function () {
         if (!startup) {
             const guild = await client.guilds.cache.get('480320873534849025');
