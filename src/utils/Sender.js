@@ -1,4 +1,4 @@
-const Embed = require('../structures/Embed.js');
+const Embed = require('../utils/Embed.js');
 const StringUtils = require('./StringUtils.js');
 const NumericUtils = require('./NumericUtils.js');
 
