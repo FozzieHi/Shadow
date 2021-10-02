@@ -12,7 +12,7 @@ class BaseRepository {
     }
 
     count(filter) {
-        return this.collection.countDocuments(filter);
+        return this.collection.count(filter);
     }
 
     findMany(filter = {}) {
@@ -30,13 +30,13 @@ class BaseRepository {
     async insertMany(documents) {
         const result = await this.collection.insertMany(documents);
 
-        return result.ops;
+        return result.acknowledged;
     }
 
     async insertOne(document) {
         const result = await this.collection.insertOne(document);
 
-        return result.ops[0];
+        return result.acknowledged;
     }
 
     replaceOne(filter, document) {
