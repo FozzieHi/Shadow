@@ -1,4 +1,4 @@
-const MongoClient = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 const UserRepository = require('../repositories/UserRepository.js');
 const GuildRepository = require('../repositories/GuildRepository.js');
 const MuteRepository = require('../repositories/MuteRepository.js');
