@@ -56,8 +56,6 @@ class Sender {
             }
         }
 
-        console.log("Options: " + embedOptions);
-
         return this.send(channel, '', embedOptions, messageOptions);
     }
 }
