@@ -52,7 +52,7 @@ class Sender {
 
         for (let i = 0; i < fieldsAndValues.length - 1; i++) {
             if (NumericUtils.isEven(i)) {
-                embedOptions.fields.push({ name: fieldsAndValues[i], value: fieldsAndValues[i + 1] });
+                embedOptions.fields.push({ name: fieldsAndValues[i], value: fieldsAndValues[i + 1].toString() });
             }
         }
 
