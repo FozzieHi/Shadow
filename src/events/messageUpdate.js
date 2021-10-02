@@ -39,7 +39,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
                         };
 
                         await Sender.sendFields(logChannel, [
-                            'Action', `Message Edit in ${newMessage.channel} [Jump to message](${newMessage.url})`,
+                            'Action', `Message Edit in ${newMessage.channel.toString()} [Jump to message](${newMessage.url})`,
                             'Before', oldMessage.content,
                             'After', newMessage.content], options, { components: buttons.map(b => ({ type: 1, components: b }))});
                     }

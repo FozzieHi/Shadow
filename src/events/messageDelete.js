@@ -31,7 +31,7 @@ client.on('messageDelete', (message) => {
                             timestamp: true
                         };
 
-                        let fields = ['Action', `Message Deletion in ${message.channel}`];
+                        let fields = ['Action', `Message Deletion in ${message.channel.toString()}`];
                         if (!StringUtils.isNullOrWhiteSpace(message.content)) {
                             fields.push('Content');
                             fields.push(message.content);
