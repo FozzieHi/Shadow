@@ -48,7 +48,7 @@ client.on('guildMemberAdd', async (member) => {
 
                 await Sender.sendFields(logChannel, [
                     'Action', `Joined the server`,
-                    'Members now', member.guild.members.cache.size], options, { components: buttons.map(b => ({ type: 1, components: b }))});
+                    'Members now', member.guild.memberCount], options, { components: buttons.map(b => ({ type: 1, components: b }))});
             }
         }
     })().catch((err) => Logger.handleError(err));
