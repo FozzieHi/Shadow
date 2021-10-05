@@ -32,4 +32,5 @@ jobs:
             ${{ runner.os }}-
       - name: Run Jest Unit Testing
         run: |
+          npm ci
           npm test
