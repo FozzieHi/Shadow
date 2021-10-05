@@ -2,8 +2,8 @@ const path = require('path');
 const RequireAll = require('patron.js').RequireAll;
 
 class IntervalService {
-    startService() {
-        RequireAll(path.join(__dirname, '../intervals'));
+    async startService() {
+        await RequireAll(path.join(__dirname, '../intervals'));
     }
 }
 

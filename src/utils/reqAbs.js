@@ -1,4 +1,4 @@
 const path = require('path');
 const {RequireAll} = require('patron.js');
 
-module.exports = async (name, dir) => RequireAll(path.join(name, dir));
+module.exports = async (name, dir) => await RequireAll(path.join(name, dir));
