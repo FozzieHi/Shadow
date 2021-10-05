@@ -34,3 +34,7 @@ jobs:
         run: |
           npm ci
           node src/ci.js ${{ secrets.TOKEN }}
+      - name: Run Jest Unit Testing
+        run: |
+          npm ci
+          npm test
