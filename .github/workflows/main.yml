@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  install:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -33,31 +33,17 @@ jobs:
       - name: Connect to Discord
         run: |
           npm ci
-          node src/ci.js ${{ secrets.TOKEN }}
-  test:
+  connect:
+    name: Connect to Discord
+    needs: install
     runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node_version: [ '16' ]
-        os: [ ubuntu-latest ]
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node_version }}
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: ${{ matrix.node_version }}
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Run Jest Unit Testing
-        run: |
-          npm ci
-          npm test
+      - run: node src/ci.js ${{ secrets.TOKEN }}
+  test:
+    name: Run Jest Unit Testing
+    needs: install
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - run: npm test
