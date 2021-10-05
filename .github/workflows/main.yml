@@ -36,14 +36,14 @@ jobs:
   connect:
     name: Connect to Discord
     needs: install
-    runs-on: ${{ matrix.os }}
+    runs-on: [ubuntu-latest]
 
     steps:
       - run: node src/ci.js ${{ secrets.TOKEN }}
   test:
     name: Run Jest Unit Testing
     needs: install
-    runs-on: ${{ matrix.os }}
+    runs-on: [ubuntu-latest]
 
     steps:
       - run: npm test
