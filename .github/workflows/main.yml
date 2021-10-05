@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  install:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -30,7 +30,20 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Connect to Discord
+      - name: Install dependencies
         run: |
           npm ci
-          node src/ci.js ${{ secrets.TOKEN }}
+  connect:
+    name: Connect to Discord
+    needs: install
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - run: node src/ci.js ${{ secrets.TOKEN }}
+  test:
+    name: Run Jest Unit Testing
+    needs: install
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - run: npm test
