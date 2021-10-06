@@ -1,3 +1,4 @@
+require('dotenv').config();
 const credentials = require('./credentials.json');
 const db = require('./database/index.js');
 const client = require('./singletons/client.js');

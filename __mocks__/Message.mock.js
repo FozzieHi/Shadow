@@ -7,7 +7,15 @@ class Message {
             id: Discord.SnowflakeUtil.generate()
         };
         this.content = content;
-        this.guild = null;
+        this.guild = {
+            channels: {
+                cache: {
+                    get: jest.fn()
+                },
+            },
+            fetchAuditLogs: jest.fn()
+        };
+        this.type = 'DEFAULT';
     }
 }
 

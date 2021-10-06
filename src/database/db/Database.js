@@ -4,6 +4,8 @@ const GuildRepository = require('../repositories/GuildRepository.js');
 const MuteRepository = require('../repositories/MuteRepository.js');
 const BanRepository = require('../repositories/BanRepository.js');
 
+let connection;
+
 class Database {
     constructor() {
         this.queries = {
@@ -26,7 +28,7 @@ class Database {
     }
 
     async connect(connectionURL) {
-        const connection = await MongoClient.connect(connectionURL);
+        connection = await MongoClient.connect(connectionURL);
         const db = connection.db(connection.s.options.dbName);
 
         this.guildRepo = new GuildRepository(await db.collection('guilds'));
@@ -35,6 +37,10 @@ class Database {
         this.banRepo = new BanRepository(await db.collection('bans'));
 
         await db.collection('guilds').createIndex('guildId', { unique: true });
+    }
+
+    async close() {
+        connection.close();
     }
 }
 
