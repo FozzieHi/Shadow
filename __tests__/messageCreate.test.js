@@ -9,9 +9,9 @@ describe("messageCreate Handler", () => {
     it("Sends an unknown command message", async () => {
         const spy = jest.spyOn(messageCreate, "runEvent");
         const mockMessage = new Message('$unknowncmd');
+        mockMessage.guild = null;
 
-        const runEvent = await messageCreate.runEvent(mockMessage);
+        await messageCreate.runEvent(mockMessage);
         expect(spy).toHaveBeenCalled();
-        expect(runEvent).toBeUndefined();
     })
 })

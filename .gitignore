@@ -3,6 +3,7 @@ node_modules/
 
 # Credentials
 src/credentials.json
+.env
 
 # Shadow Logs
 logs/
