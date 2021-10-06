@@ -7,10 +7,11 @@ const IntervalService = require('./services/IntervalService.js');
 const Logger = require('./utils/Logger.js');
 
 client.registry = registry;
-await RequireAll(path.join(__dirname, 'events'));
-await IntervalService.startService();
 
 (async () => {
+    await RequireAll(path.join(__dirname, 'events'));
+    await IntervalService.startService();
+
     await registry.registerGlobalTypeReaders();
     await registry.registerLibraryTypeReaders();
     await registry.registerTypeReaders(await reqAbs(__dirname, './types'));
