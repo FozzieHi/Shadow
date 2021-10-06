@@ -34,8 +34,9 @@ jobs:
         run: npm ci
       - name: Set database environment variable
         run: |
-          touch .env
-          echo DATABASE_URL =${{ secrets.DATABASE_URL }} >> .env
+          cat << EOF > .env
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          EOF
       - name: Connect to Discord
         if: ${{ github.actor != 'dependabot[bot]' }}
         run: node src/ci.js ${{ secrets.TOKEN }}
