@@ -33,6 +33,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Connect to Discord
+        if: github.actor != dependabot[bot]
         run: node src/ci.js ${{ secrets.TOKEN }}
       - name: Run Jest Unit Testing
         run: npm test
