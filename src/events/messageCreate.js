@@ -11,11 +11,13 @@ const discord = require('discord.js');
 const Logger = require('../utils/Logger.js');
 const https = require('https');
 
-client.on('messageCreate', async (msg) => {
-    await this.runEvent(msg);
-});
+class MessageCreate {
+    constructor() {
+        client.on('messageCreate', async (msg) => {
+            await this.runEvent(msg);
+        });
+    }
 
-class messageCreate {
     async runEvent(msg) {
         (async () => {
             if (msg.author.bot) {
@@ -97,4 +99,4 @@ class messageCreate {
     }
 }
 
-module.exports = new messageCreate();
+module.exports = new MessageCreate();
