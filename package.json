@@ -12,13 +12,15 @@
   "dependencies": {
     "bufferutil": "^4.0.3",
     "discord.js": "^13.2.0",
-    "dotenv": "^10.0.0",
-    "jest": "^27.2.4",
     "mongodb": "^4.1.0",
     "path": "^0.12.7",
     "patron.js": "github:FozzieHi/patron",
     "request": "^2.88.2",
     "snyk": "^1.731.0",
     "utf-8-validate": "^5.0.4"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "jest": "^27.2.4"
   }
 }
