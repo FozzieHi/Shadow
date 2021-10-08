@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,8 +39,6 @@ jobs:
           DATABASE_URL=${{ secrets.DATABASE_URL }}
           EOF
       - name: Connect to Discord
-        if: ${{ github.actor != 'dependabot[bot]' }}
         run: node src/ci.js ${{ secrets.TOKEN }}
       - name: Run Jest Unit Testing
-        if: ${{ github.actor != 'dependabot[bot]' }}
         run: npm test
