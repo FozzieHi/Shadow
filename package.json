@@ -21,6 +21,6 @@
   "devDependencies": {
     "dotenv": "^10.0.0",
     "jest": "^27.4.5",
-    "snyk": "^1.731.0"
+    "snyk": "^1.802.0"
   }
 }
