@@ -10,6 +10,7 @@ Copy these contents over, replacing `exampletoken` with a Discord Bot's token yo
 ```json
 {
   "mongoConnectionURL": "mongodb://connection-url",
+  "dbName": "databaseName",
   "token": "exampletoken"
 }
 ```

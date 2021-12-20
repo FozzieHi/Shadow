@@ -37,6 +37,7 @@ jobs:
         run: |
           cat << EOF > .env
           DATABASE_URL=${{ secrets.DATABASE_URL }}
+          DATABASE_NAME=${{ secrets.DATABASE_NAME }}
           EOF
       - name: Connect to Discord
         run: node src/ci.js ${{ secrets.TOKEN }}

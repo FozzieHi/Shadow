@@ -2,7 +2,7 @@ require('dotenv').config();
 const db = require("./src/database/index.js");
 
 global.beforeAll(async () => {
-    await db.connect(process.env.DATABASE_URL);
+    await db.connect(process.env.DATABASE_URL, process.env.DATABASE_NAME);
 });
 
 global.afterAll(async () => {
