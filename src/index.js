@@ -24,7 +24,7 @@ client.registry = registry;
     await registry.registerCommands(await reqAbs(__dirname, './commands'));
     await client.login(credentials.token);
 
-    for (let i = 0; i < client.guilds.cache.size; i++) { // Cache all members on startup so we can autocomplete expressions with patron.js type handlers.
-        await [...client.guilds.cache.values()][i].members.fetch();
-    }
+    // for (let i = 0; i < client.guilds.cache.size; i++) { // Cache all members on startup so we can autocomplete expressions with patron.js type handlers.
+    //     await [...client.guilds.cache.values()][i].members.fetch();
+    // }
 })().catch((err) => Logger.handleError(err));
