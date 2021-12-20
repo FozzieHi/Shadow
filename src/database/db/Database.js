@@ -27,9 +27,9 @@ class Database {
         };
     }
 
-    async connect(connectionURL) {
+    async connect(connectionURL, dbName) {
         connection = await MongoClient.connect(connectionURL);
-        const db = connection.db(connection.s.options.dbName);
+        const db = connection.db(dbName);
 
         this.guildRepo = new GuildRepository(await db.collection('guilds'));
         this.userRepo = new UserRepository(await db.collection('users'));

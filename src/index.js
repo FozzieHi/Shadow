@@ -14,7 +14,7 @@ client.registry = registry;
     await RequireAll(path.join(__dirname, 'events'));
     await IntervalService.startService();
 
-    await db.connect(credentials.mongoConnectionURL);
+    await db.connect(credentials.mongoConnectionURL, credentials.dbName);
     await registry.registerGlobalTypeReaders();
     await registry.registerLibraryTypeReaders();
     await registry.registerTypeReaders(await reqAbs(__dirname, './types'));
