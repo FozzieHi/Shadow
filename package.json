@@ -16,7 +16,7 @@
     "path": "^0.12.7",
     "patron.js": "github:FozzieHi/patron",
     "request": "^2.88.2",
-    "utf-8-validate": "^5.0.4"
+    "utf-8-validate": "^5.0.7"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
