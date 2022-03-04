@@ -35,6 +35,7 @@ class Configuration {
         ];
 
         this.cacheOptions = Options.cacheWithLimits({
+            ...Options.defaultMakeCacheSettings,
             MessageManager: {
                 maxSize: 1500,
                 sweepFilter: LimitedCollection.filterByLifetime({
