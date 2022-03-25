@@ -15,7 +15,7 @@
     "mongodb": "^4.2.2",
     "path": "^0.12.7",
     "patron.js": "github:FozzieHi/patron",
-    "utf-8-validate": "^5.0.7"
+    "utf-8-validate": "^5.0.9"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
