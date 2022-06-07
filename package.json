@@ -12,7 +12,7 @@
   "dependencies": {
     "bufferutil": "^4.0.5",
     "discord.js": "^13.4.0",
-    "mongodb": "^4.2.2",
+    "mongodb": "^4.7.0",
     "path": "^0.12.7",
     "patron.js": "github:FozzieHi/patron",
     "utf-8-validate": "^5.0.7"
