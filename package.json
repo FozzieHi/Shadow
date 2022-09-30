@@ -18,7 +18,7 @@
     "utf-8-validate": "^5.0.7"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.3",
     "jest": "^27.4.5"
   }
 }
