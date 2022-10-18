@@ -10,7 +10,7 @@
     "setupFilesAfterEnv": ["./jest-setup.js"]
   },
   "dependencies": {
-    "bufferutil": "^4.0.5",
+    "bufferutil": "^4.0.7",
     "discord.js": "^13.4.0",
     "mongodb": "^4.2.2",
     "path": "^0.12.7",
